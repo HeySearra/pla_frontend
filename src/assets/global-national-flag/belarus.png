@@ -1,0 +1,8 @@
+module.exports = __webpack_public_path__ + "static/img/belarus.48eb449.png";
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./src/assets/global-national-flag/belarus.png
+// module id = HfQS
+// module chunks = 0

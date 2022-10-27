@@ -1,0 +1,8 @@
+module.exports = __webpack_public_path__ + "static/img/rwanda.6a18a85.png";
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./src/assets/global-national-flag/rwanda.png
+// module id = 4/jv
+// module chunks = 0

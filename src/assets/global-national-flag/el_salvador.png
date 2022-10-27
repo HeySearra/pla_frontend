@@ -1,0 +1,8 @@
+module.exports = __webpack_public_path__ + "static/img/el_salvador.19424a4.png";
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./src/assets/global-national-flag/el_salvador.png
+// module id = XM5T
+// module chunks = 0

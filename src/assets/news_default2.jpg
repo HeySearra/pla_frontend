@@ -1,0 +1,8 @@
+module.exports = __webpack_public_path__ + "static/img/news_default2.2847efe.jpg";
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./src/assets/news_default2.jpg
+// module id = PwuU
+// module chunks = 5 6

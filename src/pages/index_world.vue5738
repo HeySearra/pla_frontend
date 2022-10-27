@@ -1,0 +1,11 @@
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"index"},[_c('div',{staticClass:"index_header"},[_c('PointSlider',{ref:"slider",on:{"change":_vm.slider_change}})],1),_vm._v(" "),_c('div',{staticClass:"index_main"},[_c('div',{staticClass:"index-left"},[_c('WorldMap',{ref:"world_map",attrs:{"rank_key":_vm.rank_key}})],1),_vm._v(" "),_c('div',{staticClass:"index-right"},[_vm._l((_vm.card_list),function(item,index){return _c('ChangeCard',{key:index,attrs:{"card_type":item.type,"data":item.total,"new_data":item.new,"on_select":_vm.on_click_card}})}),_vm._v(" "),_c('RankTable',{ref:"rank_table",attrs:{"rank_key":_vm.rank_key}})],2)]),_vm._v(" "),_c('DataFrom',{attrs:{"info":_vm.data_from}})],1)}
+var staticRenderFns = []
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+export default esExports
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-9270ef58","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/pages/index_world.vue
+// module id = null
+// module chunks = 

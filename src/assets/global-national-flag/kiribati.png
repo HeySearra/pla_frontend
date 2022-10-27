@@ -1,0 +1,8 @@
+module.exports = __webpack_public_path__ + "static/img/kiribati.ed6a1dd.png";
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./src/assets/global-national-flag/kiribati.png
+// module id = weg6
+// module chunks = 0

@@ -1,0 +1,11 @@
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('el-dialog',{staticClass:"change-info",attrs:{"visible":_vm.vis,"title":"修改个人信息","width":"650px","append-to-body":"","close-on-click-modal":false},on:{"update:visible":function($event){_vm.vis=$event},"close":_vm.close}},[_c('el-form',{ref:"form",attrs:{"model":_vm.form,"rules":_vm.rules,"label-width":"100px"}},[_c('el-form-item',{attrs:{"label":"头像","prop":"avatar"}},[_c('el-upload',{staticClass:"avatar-uploader",attrs:{"action":"","show-file-list":false,"http-request":_vm.upload_por,"before-upload":_vm.beforeAvatarUpload}},[(_vm.form.avatar)?_c('img',{staticClass:"avatar",attrs:{"src":_vm.form.avatar}}):_c('i',{staticClass:"el-icon-plus avatar-uploader-icon"})])],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"用户名","prop":"name"}},[_c('el-input',{staticStyle:{"width":"350px"},model:{value:(_vm.form.name),callback:function ($$v) {_vm.$set(_vm.form, "name", $$v)},expression:"form.name"}})],1)],1),_vm._v(" "),_c('span',{staticClass:"dialog-footer",attrs:{"slot":"footer"},slot:"footer"},[_c('el-button',{on:{"click":function($event){_vm.vis = false}}},[_vm._v("取 消")]),_vm._v(" "),_c('el-button',{attrs:{"type":"primary"},on:{"click":_vm.change}},[_vm._v("确 定")])],1)],1)}
+var staticRenderFns = []
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+export default esExports
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-e5504daa","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/change-info.vue
+// module id = null
+// module chunks = 

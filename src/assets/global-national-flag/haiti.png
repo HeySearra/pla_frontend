@@ -1,0 +1,8 @@
+module.exports = __webpack_public_path__ + "static/img/haiti.5333099.png";
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./src/assets/global-national-flag/haiti.png
+// module id = TZHr
+// module chunks = 0

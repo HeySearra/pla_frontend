@@ -1,0 +1,8 @@
+module.exports = __webpack_public_path__ + "static/img/logo_deep.98db0dc.png";
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./src/assets/logo_deep.png
+// module id = hBj8
+// module chunks = 3 4

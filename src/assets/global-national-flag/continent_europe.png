@@ -1,0 +1,8 @@
+module.exports = __webpack_public_path__ + "static/img/continent_europe.7507461.png";
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./src/assets/global-national-flag/continent_europe.png
+// module id = VV17
+// module chunks = 0

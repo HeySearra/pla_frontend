@@ -1,0 +1,8 @@
+module.exports = __webpack_public_path__ + "static/img/usa.8fb2eab.png";
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./src/assets/global-national-flag/usa.png
+// module id = ulev
+// module chunks = 0

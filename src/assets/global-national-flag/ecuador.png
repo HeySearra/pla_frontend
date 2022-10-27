@@ -1,0 +1,8 @@
+module.exports = __webpack_public_path__ + "static/img/ecuador.0c96bee.png";
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./src/assets/global-national-flag/ecuador.png
+// module id = 3fTa
+// module chunks = 0

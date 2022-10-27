@@ -1,0 +1,11 @@
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"travel_message_card cur_poi",class:_vm.inner_risk=='safe'?'safe':_vm.inner_risk+'inner_riskisk',on:{"click":function($event){_vm.full=!_vm.full}}},[(_vm.inner_risk==0)?_c('h3',[_c('i',{staticClass:"el-icon-warning"}),_vm._v(" "+_vm._s(_vm.title))]):_vm._e(),_vm._v(" "),(_vm.inner_risk=='mid_')?_c('h3',[_c('i',{staticClass:"el-icon-warning"}),_vm._v(" "+_vm._s(_vm.title))]):_vm._e(),_vm._v(" "),(_vm.inner_risk=='low')?_c('h3',[_c('i',{staticClass:"el-icon-warning"}),_vm._v(" "+_vm._s(_vm.title))]):_vm._e(),_vm._v(" "),(_vm.inner_risk=='safe')?_c('h3',[_c('i',{staticClass:"el-icon-info"}),_vm._v(" "+_vm._s(_vm.title))]):_vm._e(),_vm._v(" "),(_vm.inner_risk=='stop')?_c('h3',[_c('i',{staticClass:"el-icon-info"}),_vm._v(" 线路停运通知")]):_vm._e(),_vm._v(" "),_c('p',{class:_vm.full?'text_overflow_3':''},[_vm._v(_vm._s(_vm.content))])])}
+var staticRenderFns = []
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+export default esExports
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-bf16a858","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/travel_message_card.vue
+// module id = null
+// module chunks = 

@@ -1,0 +1,8 @@
+module.exports = __webpack_public_path__ + "static/img/zambia.02a880b.png";
+
+
+//////////////////
+// WEBPACK FOOTER
+// ./src/assets/global-national-flag/zambia.png
+// module id = gLve
+// module chunks = 0
