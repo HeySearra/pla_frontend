@@ -7,6 +7,7 @@
 <script>
 	// Styles
 	import '@/styles/overrides.sass'
+	// 如果运行失败：export NODE_OPTIONS=--openssl-legacy-provider
 
 	export default {
 		name: 'App',
