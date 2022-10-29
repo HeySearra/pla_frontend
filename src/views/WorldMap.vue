@@ -67,7 +67,7 @@
       <v-col md="7">
         <el-card>
           <v-tabs v-model="value">
-            <v-tab style="font-size: 20px">疫情数据</v-tab>
+            <v-tab style="font-size: 20px">世界疫情数据</v-tab>
 <!--            <v-tab style="font-size: 20px">出行预警</v-tab>-->
           </v-tabs>
 
@@ -392,7 +392,7 @@ export default {
       airArrival:[],
       airGo:[],
 
-      sortRule:{prop:null,order:null},
+      sortRule:{prop:'confirmed',order:null},
       tabdata:[],
       proptype:'',
 
@@ -432,38 +432,37 @@ export default {
 
 
     sortData({ prop, order}){
-
       this.proptype = prop;
-      console.log(order);
 
       if (order === 'descending'){
-        let pai =[];
-        let pai2 = [];
-        // this.data.sort(this.ascSortFun);
-        for(let i =0;i<this.data.length;i++){
-          if(this.data[i][prop] ==='Unknown'){
-            pai2.push(this.data[i]);
-          }
-          else{
-            pai.push(this.data[i]);
-          }
-        }
-        pai.sort(this.desSortFun)
-        this.data = pai.concat(pai2);
+        // let pai =[];
+        // let pai2 = [];
+        this.data.sort(this.desSortFun);
+
+        // for(let i =0;i<this.data.length;i++){
+        //   if(this.data[i][prop] ==='未知'){
+        //     pai2.push(this.data[i]);
+        //   }
+        //   else{
+        //     pai.push(this.data[i]);
+        //   }
+        // }
+        // pai.sort(this.desSortFun)
+        // this.data = pai.concat(pai2);
       }else if (order === 'ascending'){
-        let pai =[];
-        let pai2 = [];
-        // this.data.sort(this.ascSortFun);
-        for(let i =0;i<this.data.length;i++){
-          if(this.data[i][prop] ==='Unknown'){
-            pai2.push(this.data[i]);
-          }
-          else{
-            pai.push(this.data[i]);
-          }
-        }
-        pai.sort(this.ascSortFun)
-        this.data = pai.concat(pai2);
+        // let pai =[];
+        // let pai2 = [];
+        this.data.sort(this.ascSortFun);
+        // for(let i =0;i<this.data.length;i++){
+        //   if(this.data[i][prop] ==='未知'){
+        //     pai2.push(this.data[i]);
+        //   }
+        //   else{
+        //     pai.push(this.data[i]);
+        //   }
+        // }
+        // pai.sort(this.ascSortFun)
+        // this.data = pai.concat(pai2);
       }
       else if (order === 'null') {
         this.data = this.tabdata;
@@ -471,11 +470,11 @@ export default {
 
     },
     ascSortFun(a, b) {
-      return a[this.proptype] - b[this.proptype]
+      return a.total[this.proptype] - b.total[this.proptype]
     },
     // 降序排列方法
     desSortFun(a, b) {
-      return b[this.proptype] - a[this.proptype]
+      return b.total[this.proptype] - a.total[this.proptype]
     },
     getColor (x) {
       if (x==="起飞") return 'green'
