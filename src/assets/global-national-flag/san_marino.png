@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/san_marino.d23767e.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/san_marino.png
-// module id = 40N2
-// module chunks = 0

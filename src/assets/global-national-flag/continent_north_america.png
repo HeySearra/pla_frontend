@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/continent_north_america.fe60acf.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/continent_north_america.png
-// module id = CCaR
-// module chunks = 0

@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/nicaragua.d13c7c2.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/nicaragua.png
-// module id = LSBB
-// module chunks = 0

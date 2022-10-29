@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/vanuatu.ae79a7e.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/vanuatu.png
-// module id = koZT
-// module chunks = 0

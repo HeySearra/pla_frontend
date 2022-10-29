@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/hbc.a9dd932.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/hbc.png
-// module id = x+V2
-// module chunks = 3 4

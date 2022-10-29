@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/news_default4.b0f7d50.jpg";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/news_default4.jpg
-// module id = zdcs
-// module chunks = 5 6

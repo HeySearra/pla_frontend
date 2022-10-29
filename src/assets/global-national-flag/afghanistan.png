@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/afghanistan.6dacf21.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/afghanistan.png
-// module id = nM3A
-// module chunks = 0

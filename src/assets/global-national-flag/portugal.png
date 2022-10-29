@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/portugal.ec565bc.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/portugal.png
-// module id = F0CV
-// module chunks = 0

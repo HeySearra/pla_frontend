@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/img_1.0407147.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/img_1.png
-// module id = ICQc
-// module chunks = 0

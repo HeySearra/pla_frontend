@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/belize.1f7ecdb.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/belize.png
-// module id = tldK
-// module chunks = 0

@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/dominican.9f263cc.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/dominican.png
-// module id = NJxq
-// module chunks = 0

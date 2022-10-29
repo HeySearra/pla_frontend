@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/tip_bc0.15eed9a.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/tip_bc0.png
-// module id = swmB
-// module chunks = 3 4

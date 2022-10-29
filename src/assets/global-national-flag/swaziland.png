@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/swaziland.cd5ec9a.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/swaziland.png
-// module id = DGvv
-// module chunks = 0

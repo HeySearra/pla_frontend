@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/cyprus.04ce714.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/cyprus.png
-// module id = S+H1
-// module chunks = 0

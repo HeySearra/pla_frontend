@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/guatemala.30f2be6.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/guatemala.png
-// module id = /CEc
-// module chunks = 0

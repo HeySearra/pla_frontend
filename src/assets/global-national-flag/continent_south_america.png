@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/continent_south_america.cb27d36.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/continent_south_america.png
-// module id = cV7P
-// module chunks = 0

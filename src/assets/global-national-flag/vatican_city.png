@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/vatican_city.9c08c60.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/vatican_city.png
-// module id = Rig5
-// module chunks = 0

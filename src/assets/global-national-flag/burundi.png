@@ -1,8 +1,0 @@
-module.exports = __webpack_public_path__ + "static/img/burundi.940702c.png";
-
-
-//////////////////
-// WEBPACK FOOTER
-// ./src/assets/global-national-flag/burundi.png
-// module id = qYg0
-// module chunks = 0
