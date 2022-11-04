@@ -3,7 +3,6 @@
       fluid
       style="width: 95%"
   >
-    <!--    {{value}} 0~n -->
     <v-tabs
         fixed-tabs
         background-color="indigo"
@@ -38,12 +37,6 @@
             @input="Check()"
         >
         </v-text-field>
-<!--        <el-switch-->
-<!--            v-model="value1"-->
-<!--            active-text="动态展示"-->
-<!--            style="margin-left: 5px"-->
-<!--        >-->
-<!--        </el-switch>-->
         <div style="height: 650px;overflow: auto;width:100%;" class="test-1">
           <v-card
           >
@@ -57,7 +50,7 @@
                 <v-radio-group v-model="chooseProvince">
                   <v-radio
                       dense
-                      :value=item.name
+                      :value=item.chineseName
                       @click="changeLine(item.chineseName)"
                   >
                     <template v-slot:label>
@@ -71,9 +64,7 @@
 
           </v-card>
         </div>
-
       </v-col>
-
       <v-col
           cols="12"
           md="9"
@@ -81,13 +72,7 @@
         <v-card>
           <div style="text-align: center;margin:auto">
             <div ref="chart" id="main" style="width:100%;height:720px;text-align: center"></div>
-
-<!--              <div ref="chart" id="active" style="width:100%;height:300px;text-align: center"></div>-->
-<!--              <p style="font-size: 18px;color: #666666;padding-bottom: 20px">{{activeDate}}</p>-->
-
-
           </div>
-
         </v-card>
       </v-col>
 
@@ -103,24 +88,10 @@ export default {
     return{
 
       value1:false,
-
       inputProvince:'',
       showName:[],
-
-      activeDate:'',
-
-      chooseProvince:'China',
+      chooseProvince:'全国',
       chooseTitle:'全国',
-
-      aoption:'',
-      acharts : '',
-      Change : [0,0,0],
-      jishu : 0,
-
-      //交叉分析图
-      compareChart:'',
-      checkbox:[],
-      selected:[],
       //某国家的所有数据
       Province:[],
       //历史时间节点
@@ -131,11 +102,8 @@ export default {
       recovered:[],
       //累计死亡
       deaths:[],
-
-
       //国家名字
       provinceName:[],
-      states: ['累计确诊人数','累计死亡人数', '累计治愈人数'],
 
       //曲线
       series:[],
@@ -149,27 +117,16 @@ export default {
       value:0,
     }
   },
-  // watch:{
-  //   value1(val){
-  //     if(val) this.drawActive();
-  //
-  //   }
-  // },
 
   mounted(){
     this.drawLine();
-    // this.drawActive();
-    this.changeProvince();
-    // this.$nextTick(() => {
-    //   setInterval(this.run,100);})
-
+    this.changeProvincePY();
   },
   created(){
     this.$vuetify.theme.dark = false
     this.getProvince();
     this.drawLine();
-    // if(this.value1) this.drawActive();
-    this.changeProvince();
+    this.changeProvincePY();
   },
 
   methods:{
@@ -195,50 +152,39 @@ export default {
       return j;
     },
     changeLine(x){
-      this.changeProvince();
+      this.changeProvincePY();
       this.chooseTitle = x;
       this.drawLine();
-      // if(this.value1) this.drawActive();
 
     },
     changeProvincePY(){
-    },
-
-    changeProvince(){
       const _this =this;
       if(_this.chooseProvince!== ''){
-        // console.log(_this.chooseProvince)
-        if(_this.chooseProvince ==='China'){
-          _this.$axios.get('http://10.251.254.107:8081/data/h-China').then(function(resp) {
-            _this.Province = resp.data.data;
-            _this.date = _this.Province.map(obj => {return obj.last_Update});
-            for(let i =0 ;i<_this.date.length;i++){
-              _this.date[i] = _this.date[i].substring(0,10);
+        if(_this.chooseProvince ==='全国'){
+          _this.$axios.post('http://127.0.0.1:8000/data/country_analyze', {'name' : '中国'}).then(function (resp) {
+            if(resp.data.status === 0){
+              console.log(resp.data)
+              _this.Province = resp.data.data;
+              _this.date = _this.Province.map(obj => {return obj.date});
+              _this.deaths = _this.Province.map(obj => {return obj.total.died});
+              _this.confirmed = _this.Province.map(obj => {return obj.total.confirmed});
+              _this.recovered = _this.Province.map(obj => {return obj.total.cured});
+              _this.drawLine()
             }
-            _this.deaths = _this.Province.map(obj => {return obj.death});
-            _this.confirmed = _this.Province.map(obj => {return obj.confirmed});
-            _this.recovered = _this.Province.map(obj => {return obj.recovered});
-            _this.drawLine()
           })
-
         }
         else{
-          _this.$axios.get('http://10.251.254.107:8081/data/h-province?province='+ _this.chooseProvince).then(function(resp) {
-            _this.Province = resp.data.data;
-            _this.date = _this.Province.map(obj => {return obj.last_Update});
-            for(let i =0 ;i<_this.date.length;i++){
-              _this.date[i] = _this.date[i].substring(0,10);
+          _this.$axios.post('http://127.0.0.1:8000/data/search',{'name':_this.chooseProvince}).then(function(resp) {
+            if(resp.data.status === 0){
+              _this.Province = resp.data.data;
+              _this.date = _this.Province.map(obj => {return obj.date});
+              _this.deaths = _this.Province.map(obj => {return obj.total_died});
+              _this.confirmed = _this.Province.map(obj => {return obj.total_confirmed});
+              _this.recovered = _this.Province.map(obj => {return obj.total_cured});
+              _this.drawLine()
             }
-            // console.log(_this.date)
-            _this.deaths = _this.Province.map(obj => {return obj.deaths});
-            _this.confirmed = _this.Province.map(obj => {return obj.confirmed});
-            _this.recovered = _this.Province.map(obj => {return obj.recovered});
-            _this.drawLine()
-            // if(_this.value1) _this.drawActive();
           })
         }
-        // _this.jishu = 0;
-        // _this.run();
 
       }
     },
@@ -252,7 +198,6 @@ export default {
         chineseName:'全国',
       }
       this.provinceName[0]=province;
-
       for(let i = 0 ;i<cityArr[0].length;i++){
         let province = {
           name : '',
@@ -360,82 +305,8 @@ export default {
         myChart.resize();
       })
       myChart.hideLoading();
-
-      // console.log(this.chooseTitle)
       myChart.setOption(option)
     },
-
-
-    // drawActive(){
-    //   const _this = this;
-    //   var echarts = require('echarts');
-    //   var dom2 = document.getElementById('active');
-    //   this.acharts = echarts.init(dom2);
-    //
-    //   this.aoption = {
-    //     xAxis: {
-    //       max: 'dataMax',
-    //       axisLabel:{
-    //         textStyle:{
-    //           fontSize:17
-    //         }
-    //       },
-    //     },
-    //     yAxis: {
-    //       type: 'category',
-    //       data:['累计确诊',  '累计治愈','累计死亡'],
-    //       inverse: true,
-    //       animationDuration: 300,
-    //       animationDurationUpdate: 300,
-    //       axisLabel:{
-    //         textStyle:{
-    //           fontSize:17
-    //         }
-    //       },
-    //     },
-    //     grid: {
-    //       left : "10%" ,
-    //       right:"10%",
-    //       top:"20%",
-    //       bottom:"10%",
-    //       textAlign:'center',
-    //       containLabel: true
-    //     },
-    //     series: [{
-    //       realtimeSort: true,
-    //       name: '数值',
-    //       type: 'bar',
-    //       data: _this.Change,
-    //       label: {
-    //         show: true,
-    //         position: 'right',
-    //       },
-    //       color:"#6699ff",
-    //     }],
-    //     legend: {
-    //       show: true,
-    //       textStyle:{
-    //         fontSize:17,
-    //       }
-    //     },
-    //     animationDuration: 0,
-    //     animationDurationUpdate: 3000,
-    //     animationEasing: 'linear',
-    //     animationEasingUpdate: 'linear',
-    //   }
-    //   this.acharts.setOption(this.aoption);
-    // },
-    //
-    // run(){
-    //   let i = this.jishu;
-    //   this.activeDate = this.date[i];
-    //   this.Change[0]=this.confirmed[i];
-    //   this.Change[2]=this.deaths[i];
-    //   this.Change[1]=this.recovered[i];
-    //   this.jishu =this.jishu+1;
-    //
-    //   console.log(i)
-    // }
   }
 }
 </script>
