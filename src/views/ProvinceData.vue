@@ -98,7 +98,7 @@
 <script>
 
 export default {
-  name: "CrossAnalysis",
+  name: "ProvinceData",
   data(){
     return{
 
@@ -109,7 +109,7 @@ export default {
 
       activeDate:'',
 
-        chooseProvince:'China',
+      chooseProvince:'China',
       chooseTitle:'全国',
 
       aoption:'',
@@ -135,8 +135,6 @@ export default {
 
       //国家名字
       provinceName:[],
-
-
       states: ['累计确诊人数','累计死亡人数', '累计治愈人数'],
 
       //曲线
@@ -203,6 +201,9 @@ export default {
       // if(this.value1) this.drawActive();
 
     },
+    changeProvincePY(){
+    },
+
     changeProvince(){
       const _this =this;
       if(_this.chooseProvince!== ''){
@@ -363,6 +364,7 @@ export default {
       // console.log(this.chooseTitle)
       myChart.setOption(option)
     },
+
 
     // drawActive(){
     //   const _this = this;

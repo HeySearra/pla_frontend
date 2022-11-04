@@ -3,7 +3,6 @@
       fluid
       style="width: 95%"
   >
-    <!--    {{value}} 0~n -->
     <v-tabs
         fixed-tabs
         background-color="indigo"

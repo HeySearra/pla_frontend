@@ -338,8 +338,6 @@
 
 <script>
 import * as echarts from 'echarts'
-// import moment from 'moment';
-// import nameMap from "@/assets/world_name_map.json";
 
 require('@/assets/world')
 
@@ -569,12 +567,12 @@ export default {
       const nameMap = require('@/assets/world_name_map.json')
       // let time_stamp = moment(Date.now()).format('YYYY-MM-DD');
       // console.log(nameMap.PINYIN_MAP)
+      var numReg = /^[0-9]*$/
+      var numRe = new RegExp(numReg)
       await this.$axios.get('http://127.0.0.1:8000/data/today/international_analyze').then(res => {
         if (res.data.status === 0) {
           this.data = res.data.data[0].countries;
           for(var i=0;i<this.data.length;i++){
-            var numReg = /^[0-9]*$/
-            var numRe = new RegExp(numReg)
             this.country = this.data[i];
             this.deceased += numRe.test(this.country.total.died)?parseInt(this.country.total.died):0;
             this.confirmed += numRe.test(this.country.total.confirmed)?parseInt(this.country.total.confirmed):0;
