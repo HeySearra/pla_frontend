@@ -164,8 +164,13 @@ export default {
               return obj.total.cured
             })
             _this.drawLine()
+            if(resp.data.data.length === 0){
+              _this.$message({
+                message: '抱歉，暂时无法提供该国数据。',
+                type: 'info'
+              });
+            }
           }
-
         })
       }
     },

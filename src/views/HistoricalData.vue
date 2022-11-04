@@ -104,17 +104,17 @@
 
 <script>
 
+
 export default {
   name: "HistoricalData",
   data(){
     return{
-
       inputCountry:'',
       xiala : false,
       //趋势图
       myChart:'',
       box:[],
-      selected:[],
+      selected:['美国','印度'],
       //某国家的所有数据
       Scountry:[],
       //历史时间节点
@@ -123,40 +123,21 @@ export default {
       total:[],
       //新增确诊
       new_cases:[],
-      //确诊病例新增率
-      new_cases_smoothed:[],
       //累计死亡人数
       total_deaths : [],
       //新增死亡人数
       new_deaths : [],
-      //死亡人数新增率
-      new_deaths_smoothed : [],
-      //总确诊病例每百万占比
-      total_cases_per_million :[],
-      //新增病例每百万占比
-      new_cases_per_million : [],
-      //总死亡病例每百万占比
-      new_cases_smoothed_per_million : [],
-      //疫苗总接种人数
-      total_vaccinations : [],
-      //新增疫苗接种人数
-      new_vaccinations : [],
-      //疫苗新增接种率
-      new_vaccinations_smoothed : [],
-      // //每百人疫苗接种总数占比
-      // total_vaccinations_per_hundred : [],
-      //人口总数
-      population : [],
-
+      //累计治愈人数
+      total_cured:[],
+      //新增治愈人数
+      new_cured:[],
       //国家名字
       worldName:[],
       //通过搜索展示的国家名字
       showName:[],
       //选择的数据类型
       type: '累计确诊人数',
-      states: ['累计确诊人数', '新增确诊病例','确诊病例新增率','累计死亡人数', '新增死亡人数',
-        '死亡人数新增率','总确诊病例每百万占比','新增病例每百万占比','总死亡病例每百万占比',
-        '疫苗总接种人数', '新增疫苗接种人数', '疫苗新增接种率','人口总数'],
+      states: ['累计确诊人数', '新增确诊病例','累计死亡人数', '新增死亡人数','累计治愈人数','新增治愈人数'],
       //曲线
       series:[],
       //曲线设置
@@ -168,174 +149,78 @@ export default {
         symbol:'none',
       },
       value:1,
-
     }
   },
-
   mounted(){
     this.drawLine();
   },
   created(){
     this.$vuetify.theme.dark = false
-    this.getCountry();
-    this.init();
-
-
+    this.getCountryPY();
+    // this.init();
+    this.initPY();
   },
-
   methods: {
     //初始化
-    init(){
+    initPY(){
+      let i;
       const _this = this;
-      this.box[0]='美国';
-      this.selected[0]='美国';
-      let x = 'United States';
-      this.$axios.get('http://10.251.254.107:8081/data/history?country=' + x).then(function (resp) {
-        _this.Scountry = resp.data.data;
-        _this.date = _this.Scountry.map(obj => {
-          return obj.date
-        });
-        _this.total = _this.Scountry.map(obj => {
-          return obj.total_cases
+      console.log(_this.selected)
+      for(i = 0; i < _this.selected.length ; i++){
+        let country = _this.selected[i];
+        _this.box.push(country)
+        _this.$axios.post('http://127.0.0.1:8000/data/country_analyze', {'name' : country}).then(function (resp) {
+          if(resp.data.status === 0){
+            _this.Scountry = resp.data.data;
+            _this.date = _this.Scountry.map(obj => {
+              return obj.date
+            });
+            _this.total = _this.Scountry.map(obj => {
+              return obj.total.confirmed
+            })
+            _this.new_cases = _this.Scountry.map(obj => {
+              return obj.new.confirmed
+            })
+            _this.total_deaths = _this.Scountry.map(obj => {
+              return obj.total.died
+            })
+            _this.new_deaths = _this.Scountry.map(obj => {
+              return obj.new.died
+            })
+            _this.total_cured = _this.Scountry.map(obj =>{
+              return obj.total.cured
+            })
+            _this.new_cured = _this.Scountry.map(obj =>{
+              return obj.new.cured
+            })
+          }
+          _this.seriesItem = {
+            name: country,
+            type: 'line',
+            data: _this.getDataPY(),
+            smooth:true,
+            symbol:'none',
+          };
+          _this.series.push(_this.seriesItem);
+          _this.myChart.setOption({
+            xAxis: {
+              data: _this.date,
+            },
+            legend: {
+              name: _this.selected,
+              top: "10%",
+            },
+            series: _this.series,
+          })
         })
-        _this.new_cases = _this.Scountry.map(obj => {
-          return obj.new_cases
-        })
-        _this.new_cases_smoothed = _this.Scountry.map(obj => {
-          return obj.new_cases_smoothed
-        })
-        _this.total_deaths = _this.Scountry.map(obj => {
-          return obj.total_deaths
-        })
-        _this.new_deaths = _this.Scountry.map(obj => {
-          return obj.new_deaths
-        })
-        _this.new_deaths_smoothed = _this.Scountry.map(obj => {
-          return obj.new_deaths_smoothed
-        })
-        _this.total_cases_per_million = _this.Scountry.map(obj => {
-          return obj.total_cases_per_million
-        })
-        _this.new_cases_per_million = _this.Scountry.map(obj => {
-          return obj.new_cases_per_million
-        })
-        _this.new_cases_smoothed_per_million = _this.Scountry.map(obj => {
-          return obj.new_cases_smoothed_per_million
-        })
-        _this.total_vaccinations = _this.Scountry.map(obj => {
-          return obj.total_vaccinations
-        })
-        _this.new_vaccinations = _this.Scountry.map(obj => {
-          return obj.new_vaccinations
-        })
-        _this.new_vaccinations_smoothed = _this.Scountry.map(obj => {
-          return obj.new_vaccinations_smoothed
-        })
-        // _this .total_vaccinations_per_hundred = _this.Scountry.map(obj => {return obj.total_vaccinations_per_hundred})
-        _this.population = _this.Scountry.map(obj => {
-          return obj.population
-        })
-
-        _this.seriesItem = {
-          name: '美国',
-          type: 'line',
-          data: _this.getData(),
-          smooth:true,
-          symbol:'none',
-        };
-        _this.series[0]=_this.seriesItem;
-        _this.myChart.setOption({
-          xAxis: {
-            data: _this.date,
-          },
-          legend: {
-            name: _this.selected,
-            top: "10%",
-          },
-          series: _this.series,
-        })
-      })
-
-      this.box[1]='印度';
-      this.selected[1]='印度';
-      let y = 'India';
-      this.$axios.get('http://10.251.254.107:8081/data/history?country=' + y).then(function (resp) {
-        _this.Scountry = resp.data.data;
-        _this.date = _this.Scountry.map(obj => {
-          return obj.date
-        });
-        _this.total = _this.Scountry.map(obj => {
-          return obj.total_cases
-        })
-        _this.new_cases = _this.Scountry.map(obj => {
-          return obj.new_cases
-        })
-        _this.new_cases_smoothed = _this.Scountry.map(obj => {
-          return obj.new_cases_smoothed
-        })
-        _this.total_deaths = _this.Scountry.map(obj => {
-          return obj.total_deaths
-        })
-        _this.new_deaths = _this.Scountry.map(obj => {
-          return obj.new_deaths
-        })
-        _this.new_deaths_smoothed = _this.Scountry.map(obj => {
-          return obj.new_deaths_smoothed
-        })
-        _this.total_cases_per_million = _this.Scountry.map(obj => {
-          return obj.total_cases_per_million
-        })
-        _this.new_cases_per_million = _this.Scountry.map(obj => {
-          return obj.new_cases_per_million
-        })
-        _this.new_cases_smoothed_per_million = _this.Scountry.map(obj => {
-          return obj.new_cases_smoothed_per_million
-        })
-        _this.total_vaccinations = _this.Scountry.map(obj => {
-          return obj.total_vaccinations
-        })
-        _this.new_vaccinations = _this.Scountry.map(obj => {
-          return obj.new_vaccinations
-        })
-        _this.new_vaccinations_smoothed = _this.Scountry.map(obj => {
-          return obj.new_vaccinations_smoothed
-        })
-        // _this .total_vaccinations_per_hundred = _this.Scountry.map(obj => {return obj.total_vaccinations_per_hundred})
-        _this.population = _this.Scountry.map(obj => {
-          return obj.population
-        })
-
-        _this.seriesItem = {
-          name: '印度',
-          type: 'line',
-          data: _this.getData(),
-          smooth:true,
-          symbol:'none',
-        };
-        _this.series[1]=_this.seriesItem;
-        _this.myChart.setOption({
-          xAxis: {
-            data: _this.date,
-          },
-          legend: {
-            name: _this.selected,
-            top: "10%",
-          },
-          series: _this.series,
-        })
-      })
+      }
     },
-
-
     //新增或删除曲线
     changeSeries(y) {
       let x = y.name;
       let i = this.searchCountry(y.chineseName);
-      console.log(y.name)
-      console.log(i)
-      // alert(i)
       if (i === -1) {
-        this.addCountry(x,y.chineseName);
+        this.addCountryPY(x,y.chineseName);
       } else {
         this.deleteCountry(i);
       }
@@ -347,121 +232,95 @@ export default {
       else return i;
     },
     //根据type返回需要的数组
-    getData() {
+    getDataPY() {
       const _this = this;
       if (_this.type === '累计确诊人数') return _this.total;
       else if (_this.type === '新增确诊病例') return _this.new_cases;
-      else if (_this.type === '确诊病例新增率') return _this.new_cases_smoothed;
       else if (_this.type === '累计死亡人数') return _this.total_deaths;
       else if (_this.type === '新增死亡人数') return _this.new_deaths;
-      else if (_this.type === '死亡人数新增率') return _this.new_deaths_smoothed;
-      else if (_this.type === '总确诊病例每百万占比') return _this.total_cases_per_million;
-      else if (_this.type === '新增病例每百万占比') return _this.new_cases_per_million;
-      else if (_this.type === '总死亡病例每百万占比') return _this.new_cases_smoothed_per_million;
-      else if (_this.type === '疫苗总接种人数') return _this.total_vaccinations;
-      else if (_this.type === '新增疫苗接种人数') return _this.new_vaccinations;
-      else if (_this.type === '疫苗新增接种率') return _this.new_vaccinations_smoothed;
-      // else if(_this.type === '每百人疫苗接种总数占比') return _this.total_vaccinations_per_hundred;
-      else if (_this.type === '人口总数') return _this.population;
+      else if (_this.type === '累计治愈人数') return _this.total_cured;
+      else if (_this.type === '新增治愈人数') return _this.new_cured;
       else return _this.total;
     },
-
     changeType() {
       const _this = this;
       _this.box = [];
-      _this.selected = [];
+      // _this.selected = [];
       _this.series = [];
       _this.myChart.clear();
       _this.drawLine();
       _this.inputCountry = '';
       _this.showName = _this.worldName;
-      _this.init();
+      _this.initPY()
     },
-    getCountry() {
-      const _this = this;
-      this.$axios.get('http://10.251.254.107:8081/data/all').then(function (resp) {
-        // _this.worldName = resp.data.data;
-        _this.worldName = resp.data.data;
-        // console.log(_this.worldName)
-        const nameMap = require('@/assets/world_name_map.json')
-        _this.worldName.forEach((item, i) => {
-          if (nameMap[item.name] === undefined) {
-            _this.worldName[i].chineseName = item.name
-          } else {
-            _this.worldName[i].chineseName = nameMap[item.name]
-          }
-        })
-        _this.showName = _this.worldName;
-      })
-    },
-    //添加新的国家的函数
-    addCountry: function (x,y) {
-      const _this = this;
-      this.selected.push(y);
-      this.$axios.get('http://10.251.254.107:8081/data/history?country=' + x).then(function (resp) {
-        _this.Scountry = resp.data.data;
-        _this.date = _this.Scountry.map(obj => {
-          return obj.date
+    getCountryPY(){
+      const _this = this
+      const nameMap = require('@/assets/registry.json').PINYIN_MAP
+      for(const key in nameMap){
+        _this.showName.push({
+          name:nameMap[key],
+          chineseName:key
         });
-        _this.total = _this.Scountry.map(obj => {
-          return obj.total_cases
-        })
-        _this.new_cases = _this.Scountry.map(obj => {
-          return obj.new_cases
-        })
-        _this.new_cases_smoothed = _this.Scountry.map(obj => {
-          return obj.new_cases_smoothed
-        })
-        _this.total_deaths = _this.Scountry.map(obj => {
-          return obj.total_deaths
-        })
-        _this.new_deaths = _this.Scountry.map(obj => {
-          return obj.new_deaths
-        })
-        _this.new_deaths_smoothed = _this.Scountry.map(obj => {
-          return obj.new_deaths_smoothed
-        })
-        _this.total_cases_per_million = _this.Scountry.map(obj => {
-          return obj.total_cases_per_million
-        })
-        _this.new_cases_per_million = _this.Scountry.map(obj => {
-          return obj.new_cases_per_million
-        })
-        _this.new_cases_smoothed_per_million = _this.Scountry.map(obj => {
-          return obj.new_cases_smoothed_per_million
-        })
-        _this.total_vaccinations = _this.Scountry.map(obj => {
-          return obj.total_vaccinations
-        })
-        _this.new_vaccinations = _this.Scountry.map(obj => {
-          return obj.new_vaccinations
-        })
-        _this.new_vaccinations_smoothed = _this.Scountry.map(obj => {
-          return obj.new_vaccinations_smoothed
-        })
-        // _this .total_vaccinations_per_hundred = _this.Scountry.map(obj => {return obj.total_vaccinations_per_hundred})
-        _this.population = _this.Scountry.map(obj => {
-          return obj.population
-        })
+      }
+      _this.worldName = _this.showName
+    },
 
-        _this.seriesItem = {
-          name: y.toString(),
-          type: 'line',
-          data: _this.getData(),
-          smooth:true,
-          symbol:'none',
-        };
-        _this.series.push(_this.seriesItem);
-        _this.myChart.setOption({
-          xAxis: {
-            data: _this.date,
-          },
-          legend: {
-            name: _this.selected,
-            top: "10%",
-          },
-          series: _this.series,
-        })
+    //添加新的国家的函数
+    addCountryPY: function (x,y) {
+      const _this = this;
+      _this.$axios.post('http://127.0.0.1:8000/data/country_analyze', {'name' : y}).then(function (resp) {
+        console.log(resp)
+        if(resp.data.status === 0 && resp.data.data.length !== 0){
+          _this.selected.push(y);
+          _this.Scountry = resp.data.data;
+          _this.date = _this.Scountry.map(obj => {
+            return obj.date
+          });
+          _this.total = _this.Scountry.map(obj => {
+            return obj.total.confirmed
+          })
+          _this.new_cases = _this.Scountry.map(obj => {
+            return obj.new.confirmed
+          })
+          _this.total_deaths = _this.Scountry.map(obj => {
+            return obj.total.died
+          })
+          _this.new_deaths = _this.Scountry.map(obj => {
+            return obj.new.died
+          })
+          _this.total_cured = _this.Scountry.map(obj =>{
+            return obj.total.cured
+          })
+          _this.new_cured = _this.Scountry.map(obj =>{
+            return obj.new.cured
+          })
+          _this.seriesItem = {
+            name: y.toString(),
+            type: 'line',
+            // data: _this.getData(),
+            data: _this.getDataPY(),
+            smooth:true,
+            symbol:'none',
+          };
+          _this.series.push(_this.seriesItem);
+          _this.myChart.setOption({
+            xAxis: {
+              data: _this.date,
+            },
+            legend: {
+              name: _this.selected,
+              top: "10%",
+            },
+            series: _this.series,
+          })
+        }
+        else {
+          _this.box.splice(_this.box.indexOf(y),1)
+          _this.$message({
+            message: '抱歉，暂时无法提供该国数据。',
+            type: 'info'
+          });
+        }
       })
     },
     deleteCountry(i) {
