@@ -70,8 +70,10 @@
           md="9"
       >
         <v-card>
-          <div style="text-align: center;margin:auto">
-            <div ref="chart" id="main" style="width:100%;height:720px;text-align: center"></div>
+          <div v-loading="loading">
+            <div style="text-align: center;margin:auto">
+              <div ref="chart" id="main" style="width:100%;height:720px;text-align: center"></div>
+            </div>
           </div>
         </v-card>
       </v-col>
@@ -86,7 +88,7 @@ export default {
   name: "ProvinceData",
   data(){
     return{
-
+      loading : false,
       value1:false,
       inputProvince:'',
       showName:[],
@@ -119,13 +121,11 @@ export default {
   },
 
   mounted(){
-    this.drawLine();
     this.changeProvincePY();
   },
   created(){
     this.$vuetify.theme.dark = false
     this.getProvince();
-    this.drawLine();
     this.changeProvincePY();
   },
 
@@ -152,16 +152,16 @@ export default {
       return j;
     },
     changeLine(x){
-      this.changeProvincePY();
       this.chooseTitle = x;
-      this.drawLine();
+      this.changeProvincePY();
 
     },
     changeProvincePY(){
+      this.loading = true;
       const _this =this;
       if(_this.chooseProvince!== ''){
         if(_this.chooseProvince ==='全国'){
-          _this.$axios.post('http://127.0.0.1:8000/data/country_analyze', {'name' : '中国'}).then(function (resp) {
+          _this.$axios.post('http://42.194.158.76:8001/data/country_analyze', {'name' : '中国'}).then(function (resp) {
             if(resp.data.status === 0){
               console.log(resp.data)
               _this.Province = resp.data.data;
@@ -174,7 +174,7 @@ export default {
           })
         }
         else{
-          _this.$axios.post('http://127.0.0.1:8000/data/search',{'name':_this.chooseProvince}).then(function(resp) {
+          _this.$axios.post('http://42.194.158.76:8001/data/search',{'name':_this.chooseProvince}).then(function(resp) {
             if(resp.data.status === 0){
               _this.Province = resp.data.data;
               _this.date = _this.Province.map(obj => {return obj.date});
@@ -304,8 +304,8 @@ export default {
       window.addEventListener('resize', function() {
         myChart.resize();
       })
-      myChart.hideLoading();
       myChart.setOption(option)
+      this.loading = false;
     },
   }
 }

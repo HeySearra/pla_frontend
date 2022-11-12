@@ -68,8 +68,10 @@
           md="9"
       >
         <v-card>
-          <div style="text-align: center;margin:auto">
-            <div ref="chart" id="main" style="width:100%;height:720px;text-align: center"></div>
+          <div v-loading="loading">
+            <div style="text-align: center;margin:auto">
+              <div ref="chart" id="main" style="width:100%;height:720px;text-align: center"></div>
+            </div>
           </div>
         </v-card>
       </v-col>
@@ -83,6 +85,7 @@ export default {
   name: "CrossAnalysis",
   data(){
     return{
+      loading : false,
       inputCountry:'',
       showName:[],
       chooseCountry:'阿富汗',
@@ -111,7 +114,6 @@ export default {
     }
   },
   mounted(){
-    this.drawLine();
     this.changeCountryPY();
   },
   created(){
@@ -140,14 +142,14 @@ export default {
       return j;
     },
     changeLine(x){
-      this.changeCountryPY();
       this.chooseTitle = x;
-      this.drawLine();
+      this.changeCountryPY();
     },
     changeCountryPY() {
+      this.loading = true;
       const _this = this;
       if (_this.chooseCountry !== '') {
-        _this.$axios.post('http://127.0.0.1:8000/data/country_analyze', {'name' : _this.chooseCountry}).then(function (resp) {
+        _this.$axios.post('http://42.194.158.76:8001/data/country_analyze', {'name' : _this.chooseCountry}).then(function (resp) {
           console.log(resp.data)
           if(resp.data.status === 0){
             _this.Scountry = resp.data.data;
@@ -280,6 +282,7 @@ export default {
         myChart.resize();
       })
        myChart.setOption(option)
+      this.loading = false;
     },
   }
 }

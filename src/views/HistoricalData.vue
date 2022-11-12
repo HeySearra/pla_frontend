@@ -92,10 +92,11 @@
       >
         <br>
         <v-card>
-          <div style="text-align: center;margin:auto">
-            <div ref="chart" id="main" style="width:100%;height:720px;text-align: center"></div>
+          <div v-loading="loading">
+            <div style="text-align: center;margin:auto">
+              <div ref="chart" id="main" style="width:100%;height:720px;text-align: center"></div>
+            </div>
           </div>
-
         </v-card>
       </v-col>
     </v-row>
@@ -109,6 +110,7 @@ export default {
   name: "HistoricalData",
   data(){
     return{
+      loading : false,
       inputCountry:'',
       xiala : false,
       //趋势图
@@ -156,20 +158,20 @@ export default {
   },
   created(){
     this.$vuetify.theme.dark = false
-    this.getCountryPY();
-    // this.init();
-    this.initPY();
+    this.drawLine().then(()=>{
+      this.getCountryPY();
+      this.initPY();
+    })
   },
   methods: {
     //初始化
     initPY(){
       let i;
       const _this = this;
-      console.log(_this.selected)
       for(i = 0; i < _this.selected.length ; i++){
         let country = _this.selected[i];
         _this.box.push(country)
-        _this.$axios.post('http://127.0.0.1:8000/data/country_analyze', {'name' : country}).then(function (resp) {
+        _this.$axios.post('http://42.194.158.76:8001/data/country_analyze', {'name' : country}).then(function (resp) {
           if(resp.data.status === 0){
             _this.Scountry = resp.data.data;
             _this.date = _this.Scountry.map(obj => {
@@ -212,8 +214,10 @@ export default {
             },
             series: _this.series,
           })
+
         })
       }
+      _this.myChart.hideLoading();
     },
     //新增或删除曲线
     changeSeries(y) {
@@ -248,10 +252,11 @@ export default {
       // _this.selected = [];
       _this.series = [];
       _this.myChart.clear();
-      _this.drawLine();
-      _this.inputCountry = '';
-      _this.showName = _this.worldName;
-      _this.initPY()
+      _this.drawLine().then(()=>{
+        _this.inputCountry = '';
+        _this.showName = _this.worldName;
+        _this.initPY()
+      })
     },
     getCountryPY(){
       const _this = this
@@ -268,8 +273,7 @@ export default {
     //添加新的国家的函数
     addCountryPY: function (x,y) {
       const _this = this;
-      _this.$axios.post('http://127.0.0.1:8000/data/country_analyze', {'name' : y}).then(function (resp) {
-        console.log(resp)
+      _this.$axios.post('http://42.194.158.76:8001/data/country_analyze', {'name' : y}).then(function (resp) {
         if(resp.data.status === 0 && resp.data.data.length !== 0){
           _this.selected.push(y);
           _this.Scountry = resp.data.data;
@@ -397,6 +401,9 @@ export default {
         _this.myChart.resize();
       })
       _this.myChart.setOption(option)
+      _this.myChart.showLoading({
+        text: 'loading……'
+      });
     },
     //模糊搜索国家
     search(){
