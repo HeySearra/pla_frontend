@@ -25,26 +25,15 @@
                 <div style="font-weight: bolder;font-size: 16px;color:#0D47A1 ">+{{cityInfoCard.todayConfirm}}</div>
               </div>
 
-<!--              <div style="margin: auto" v-if="!city">-->
-<!--                <div style="font-weight: bolder;font-size: 20px">现存确诊</div>-->
-<!--                <div style="font-weight: bolder;font-size: 32px;color:#C62828 ">{{nowConfirm}}</div>-->
-<!--                <div style="font-weight: bolder;font-size: 16px;color:#C62828 ">+{{todayConfirm}}</div>-->
-<!--              </div>-->
-<!--              <div style="margin: auto" v-else>-->
-<!--                <div style="font-weight: bolder;font-size: 20px">现存确诊</div>-->
-<!--                <div style="font-weight: bolder;font-size: 32px;color:#C62828 ">{{cityInfoCard.active}}</div>-->
-<!--                <div style="font-weight: bolder;font-size: 16px;color:#C62828 ">+{{cityInfoCard.todayConfirm}}</div>-->
-<!--              </div>-->
-
               <div style="margin: auto" v-if="!city">
                 <div style="font-weight: bolder;font-size: 20px">累计治愈</div>
                 <div style="font-weight: bolder;font-size: 32px;color:#C62828 ">{{heal}}</div>
                 <div style="font-weight: bolder;font-size: 16px;color:#C62828 ">+{{todayHeal}}</div>
               </div>
               <div style="margin: auto" v-else>
-                <div style="font-weight: bolder;font-size: 20px">现存确诊</div>
-                <div style="font-weight: bolder;font-size: 32px;color:#C62828 ">{{cityInfoCard.active}}</div>
-                <div style="font-weight: bolder;font-size: 16px;color:#C62828 ">+{{cityInfoCard.todayConfirm}}</div>
+                <div style="font-weight: bolder;font-size: 20px">累计治愈</div>
+                <div style="font-weight: bolder;font-size: 32px;color:#C62828 ">{{cityInfoCard.recovered}}</div>
+                <div style="font-weight: bolder;font-size: 16px;color:#C62828 ">+{{cityInfoCard.todayRecovered}}</div>
               </div>
 
 
@@ -64,6 +53,7 @@
         </v-row>
         <!--        按钮-->
         <v-row>
+          <!--
           <v-btn
               class="mx-2"
               rounded
@@ -75,6 +65,7 @@
             <span v-if="!showAll">查看累计确诊人数</span>
             <span v-else>查看现存确诊人数</span>
           </v-btn>
+          -->
           <v-btn
               @click="returnWholeCountry" style="background-color: #1e88e5; color: white;border-radius: 28px" v-show="isCity">
             返回全国地图
@@ -233,18 +224,6 @@
               </el-table-column>
 
               <el-table-column
-                  prop="active"
-                  label="现存确诊"
-                  align="center">
-                <template slot="header" >
-                  <span style="font-size: 18px;font-weight:bold;">现存确诊</span>
-                </template>
-                <template slot-scope="item">
-                  <span style="font-size: 20px;font-weight:bold;color:#1565C0">{{item.row.active}}</span>
-                </template>
-              </el-table-column>
-
-              <el-table-column
                   prop="recovered"
                   label="累计治愈"
                   align="center">
@@ -256,17 +235,6 @@
                 </template>
               </el-table-column>
 
-              <el-table-column
-                  prop="vaccinated"
-                  label="疫苗接种"
-                  align="center">
-                <template slot="header" >
-                  <span style="font-size: 18px;font-weight:bold;">疫苗(剂次)</span>
-                </template>
-                <template slot-scope="item">
-                  <span style="color:#4527A0;font-weight:bold;font-size: 20px">{{item.row.vaccinated}}</span>
-                </template>
-              </el-table-column>
             </el-table>
             <div v-else-if="value === 1">
               <v-row>
@@ -712,6 +680,9 @@
                   <v-col cols="5"><span style="font-size:24px">{{location.province}}</span></v-col>
                 </v-row>
                 <v-row>
+                  <!-- **************************  -->
+                  <!-- 为啥不用provinceInfo的今日信息 -->
+                  <!-- **************************  -->
                   <v-col cols="3">
                     <v-card style="text-align: center;padding: 30px" color="#fff8f8">
                       <div><span style="color:#7c7c7c">较上日</span><span style="color: #e61c1d">+{{location.cityInfo.todayConfirm}}</span></div>
@@ -733,6 +704,9 @@
                       <div style="font-size: 20px">累计确诊</div>
                     </v-card>
                   </v-col>
+                  <!-- ***** -->
+                  <!-- +0??? -->
+                  <!-- ***** -->
                   <v-col cols="3">
                     <v-card style="text-align: center;padding: 30px" color="#f3f6f8">
                       <div><span style="color:#7c7c7c">较上日</span><span style="color: #4e5a65">+0</span></div>
@@ -818,7 +792,8 @@ import 'echarts/map/js/china'
 
 const option = {
   geo: {
-    name: ['累计确诊人数', '现存确诊人数', '今日确诊人数', '死亡人数'],
+    name: ['累计确诊人数', '今日确诊人数', '死亡人数', '治愈人数'],
+    // name: ['累计确诊人数', '现存确诊人数', '今日确诊人数', '死亡人数'],
     type: 'map',
     map: 'china',
     label: {
@@ -847,7 +822,8 @@ const option = {
     }
   },
   series: [{
-    name: ['累计确诊人数', '现存确诊人数', '今日确诊人数', '死亡人数'],
+    name: ['累计确诊人数', '今日确诊人数', '死亡人数', '治愈人数'],
+    // name: ['累计确诊人数', '现存确诊人数', '今日确诊人数', '死亡人数'],
     type: 'map',
     map: 'china',
     label:{
@@ -901,8 +877,8 @@ export default {
     return {
       canLocate: false,
       isCity: false,
-      bookedProvinces: [],
-      bookedProvinces1: [],
+      bookedProvinces: [],    // 订阅的省份名
+      bookedProvinces1: [],   // 订阅的城市名
       value1:false,
       showTrain:[],
       airArrival:[],
@@ -934,13 +910,13 @@ export default {
           todayWzz: ''
         }
       },
-      heal:'',
-      todayHeal:'',
-      totalConfirm: '',
-      nowConfirm: '',
-      dead: '',
-      todayConfirm: '',
-      todayDead: '',
+      heal: 0,
+      todayHeal: 0,
+      totalConfirm: 0,
+      nowConfirm: 0,
+      dead: 0,
+      todayConfirm: 0,
+      todayDead: 0,
       showAll: false,
       myChart: null,
       headers: [
@@ -1078,11 +1054,14 @@ export default {
       const data = option.series[0].data
       for (let i in data) {
         if (data[i].dataset !== undefined) {
+          /*
           if (this.showAll) {
             data[i].value = data[i].dataset[0]
           } else {
             data[i].value = data[i].dataset[1]
           }
+          */
+          data[i].value = data[i].dataset[0]
         }
       }
       this.data = this.db
@@ -1123,15 +1102,15 @@ export default {
           self.location.city = data.addressComponent.city;
           self.location.district = data.addressComponent.district;
           self.location.address = data.formattedAddress;
-          self.$axios.get('/data/province').then(res => {
-            res.data.data[0].children.forEach(province => {
+          self.$axios.get('http://42.194.158.76:8001/data/today/domestic_analyze').then(res => {
+            res.data.data[0].provinces.forEach(province => {
               if (province.name === self.location.province.substr(0,2)) {
-                self.location.provinceInfo.confirm = province.total.confirm
-                self.location.provinceInfo.dead = province.total.dead
-                self.location.provinceInfo.nowConfirm = province.total.nowConfirm
-                self.location.provinceInfo.todayConfirm = province.today.confirm
-                self.location.provinceInfo.todayWzz = province.today.wzz_add === undefined ? 0 : province.today.wzz_add
-                self.location.provinceInfo.wzz = province.total.wzz
+                self.location.provinceInfo.confirm = province.total.confirmed
+                self.location.provinceInfo.dead = province.total.died
+                // self.location.provinceInfo.nowConfirm = province.total.nowConfirm
+                self.location.provinceInfo.todayConfirm = province.new.confirmed
+                // self.location.provinceInfo.todayWzz = province.today.wzz_add === undefined ? 0 : province.today.wzz_add
+                // self.location.provinceInfo.wzz = province.total.wzz
                 if (province.name === '北京' || province.name === '天津' || province.name === '上海' || province.name === '重庆') {
                   self.location.city = self.location.district
                   province.children.forEach(city => {
@@ -1249,31 +1228,34 @@ export default {
 
     },
     getData() {
-      this.$axios.get('/data/province').then(res => {
-        let list = this.myMap(res.data.data[0].children, item => {
-          const value = this.showAll ? item.total.confirm : item.total.nowConfirm
+      // this.$axios.get('/data/province').then(res => {
+      this.$axios.get('http://42.194.158.76:8001/data/today/domestic_analyze').then(res => {
+        let list = this.myMap(res.data.data[0].provinces, item => {
+          const value = item.total.confirmed
           return {
             name: item.name,
             value,
             dataset: [
-              item.total.confirm, item.total.nowConfirm, item.today.confirm, item.total.dead, item.name, item.total.heal
+              item.total.confirmed, item.new.confirmed, item.total.died, item.name, item.total.cured
             ]
           }
         })
-        this.heal = res.data.data[0].total.heal
-        this.totalConfirm = res.data.data[0].total.confirm
-        this.nowConfirm = res.data.data[0].total.nowConfirm
-        this.dead = res.data.data[0].total.dead
-        this.todayConfirm = res.data.data[0].today.confirm
-        this.todayDead = res.data.data[0].today.dead === undefined ? 0 : res.data.data[0].today.dead
+        // 计算全国疫情数据
+        res.data.data[0].provinces.forEach(province => {
+          this.heal += province.total.cured;
+          this.totalConfirm += province.total.confirmed;
+          this.dead += province.total.died;
+          this.todayConfirm += province.new.confirmed;
+          this.todayDead += province.new.died;
+        })
 
         // 展示浮标信息
         option.series[0].data = list
         option.tooltip.formatter = function (params) {
           if (params.data) {
-            return params.name + '<br/>累计确诊人数：' + params.data.dataset[0] + '<br/>现存确诊人数：' + params.data.dataset[1] +
-                '<br/>今日确诊人数：' + params.data.dataset[2] + '<br/>死亡人数：' + params.data.dataset[3] +
-                '<br/>治愈人数：' + params.data.dataset[5]
+            return params.name + '<br/>累计确诊人数：' + params.data.dataset[0] +
+                '<br/>今日确诊人数：' + params.data.dataset[1] + '<br/>死亡人数：' + params.data.dataset[2] +
+                '<br/>治愈人数：' + params.data.dataset[4]
           }
           return '暂无数据'
         }
@@ -1286,7 +1268,7 @@ export default {
         ];
         this.mycharts.on('click', param => {
           // 城市中文名
-          const cityName = param.data.dataset[4];
+          const cityName = param.data.dataset[3];
           console.log(cityName)
           if(this.city.length === 0){
             this.city = cityName
@@ -1294,6 +1276,7 @@ export default {
             this.isCity = true
           }
 
+          // 当在省份地图选中城市时，city对应省份名，cityName对应城市名
           else{
             this.city = this.contains(cityArr[0], cityName) ? cityName : this.city
             this.isCity = this.city !== cityName
@@ -1315,7 +1298,7 @@ export default {
           })
 
           this.isSelect = false
-          // 查找是否有对应城市有则加载城市
+          // 加载省份地图
           for (let i = 0, len = cityArr[0].length; i < len; i++) {
             if (cityName === cityArr[0][i]) {
               // 获取得城市拼音
@@ -1332,12 +1315,9 @@ export default {
                       {
                         provinceName: city.name,
                         deceased: city.deceased,
-                        active: city.active,
                         confirmed: city.confirmed,
                         recovered: city.recovered,
-                        vaccinated: city.vaccinated,
-                        grade: city.grade,
-                        priority: city.priority
+                        todayConfirmed: city.todayConfirmed
                       }
                   )
                 }
@@ -1372,12 +1352,14 @@ export default {
           if (city.provinceName === zhName) {
             let alias = nameAmend[zhName][city.name]
             if (alias === undefined)
-              alias = city.name + '区'
-            const value = this.showAll ? city.confirmed : city.active
+              // alias = city.name + '区'
+              alias = city.name
+            // const value = this.showAll ? city.confirmed : city.active
+            const value = city.confirmed
             shownData.push({
-              name: alias,
+              name: city.name,
               value,
-              dataset: [city.confirmed, city.active, city.todayConfirmed, city.deceased, city.name]
+              dataset: [city.confirmed, city.todayConfirmed, city.deceased, city.name, city.recovered]
             })
           }
         })
@@ -1388,11 +1370,12 @@ export default {
             let alias = nameAmend[zhName][city.name]
             if (alias === undefined)
               alias = city.name
-            const value = this.showAll ? city.confirmed : city.active
+            // const value = this.showAll ? city.confirmed : city.active
+            const value = city.confirmed
             shownData.push({
               name: alias,
               value,
-              dataset: [city.confirmed, city.active, city.todayConfirmed, city.deceased, city.name]
+              dataset: [city.confirmed, city.todayConfirmed, city.deceased, city.name, city.recovered]
             })
           }
         })
@@ -1402,12 +1385,14 @@ export default {
           if (city.provinceName === zhName) {
             let alias = nameAmend[zhName][city.name]
             if (alias === undefined)
-              alias = city.name + '市'
-            const value = this.showAll ? city.confirmed : city.active
+              // alias = city.name + '市'
+              alias = city.name
+            // const value = this.showAll ? city.confirmed : city.active
+            const value = city.confirmed
             shownData.push({
               name: alias,
               value,
-              dataset: [city.confirmed, city.active, city.todayConfirmed, city.deceased, city.name]
+              dataset: [city.confirmed, city.todayConfirmed, city.deceased, city.name, city.recovered]
             })
           }
         })
@@ -1791,12 +1776,10 @@ export default {
       this.search = ''
       this.flag = true
     },
+    // 构造全国省份数据，并构造初始页面的全国省份疫情信息表
     getProvinceTotal() {
       const _this = this;
-      this.$axios.get('/data/province').then(function (resp) {
-        _this.tempData = resp.data.data[0].children;
-        _this.creatTable()
-      })
+      _this.creatTable();
     },
     creatTable() {
       // console.log(this.tempData[0].name)
@@ -1813,44 +1796,24 @@ export default {
       // eslint-disable-next-line no-unused-vars
       var vaccinated = '未公布'
       var temp = [];
-      this.$axios.get('/data/vaccine').then(res => {
-        this.$axios.get('/data/province').then(resp => {
-          resp.data.data[0].children.forEach(province => {
-            let item = null
-            res.data.data.forEach(pro => {
-              if (pro.province === province.name) {
-                item = {
-                  provinceName: province.name,
-                  confirmed: province.total.confirm,
-                  active: province.total.nowConfirm,
-                  deceased: province.total.dead,
-                  recovered: province.total.heal,
-                  vaccinated: pro.num,
-                  wzz: province.total.wzz,
-                  todayWzz: province.today.wzz,
-                  todayConfirm: province.today.confirm
-                }
-              }
-            })
-            if (item === null) {
-              item = {
-                provinceName: province.name,
-                confirmed: province.total.confirm,
-                active: province.total.nowConfirm,
-                deceased: province.total.dead,
-                recovered: province.total.heal,
-                vaccinated: '未公布',
-                wzz: province.total.wzz,
-                todayWzz: province.today.wzz,
-                todayConfirm: province.today.confirm
-              }
+
+      this.$axios.get('http://42.194.158.76:8001/data/today/domestic_analyze').then(res => {
+        if (res.data.status === 0) {
+          res.data.data[0].provinces.forEach(province => {
+            let item = {
+              provinceName: province.name,
+              confirmed: province.total.confirmed,
+              deceased: province.total.died,
+              recovered: province.total.cured,
+              todayConfirm: province.new.confirmed,
+              todayRecovered: province.new.cured
             }
             temp.push(item)
           })
-        })
-        this.provinceData = temp;
-        this.shownProvince = this.provinceData
-        console.log("hzy2", this.shownProvince)
+          this.provinceData = temp;
+          this.shownProvince = this.provinceData
+          console.log(this.shownProvince)
+        }
       })
     },
     //画火车
@@ -2168,13 +2131,17 @@ export default {
   },
   mounted() {
     this.mycharts = echarts.init(this.$refs.chinaMap)
+    // map初始化
     this.getData()
     this.getTrain()
     this.getAir()
     this.mycharts.setOption(option)
 
-    this.$axios.get('/data/province').then(res => {
-      res.data.data[0].children.forEach(province => {
+    // this.$axios.get('/data/province').then(res => {
+    /*
+    this.$axios.get('http://42.194.158.76:8001/data/today/domestic_analyze').then(res => {
+      // 生成db数据
+      res.data.data[0].provinces.forEach(province => {
         const provinceName = province.name
         province.children.forEach(city => {
           if (city.name !== '境外输入' && city.name !== '地区待确认' &&
@@ -2212,6 +2179,7 @@ export default {
           }
         })
       })
+      // 对city信息按风险升序排列
       this.db.sort((a, b) => {
         const val1 = a.priority
         const val2 = b.priority
@@ -2223,6 +2191,7 @@ export default {
           return 0;
         }
       })
+      // 创建data数据
       this.data = []
       this.db.forEach(city => {
         const copy = {
@@ -2240,9 +2209,44 @@ export default {
         this.data.push(copy)
       })
     })
+     */
+    // 构建db、data数据
+    const cityArr = ['上海', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '广西', '海南', '四川', '贵州', '云南', '西藏', '陕西', '甘肃', '青海', '宁夏', '新疆', '北京', '天津', '重庆', '香港', '澳门', '台湾'];
+    for (let i = 0, len = cityArr.length; i < len; i++) {
+      const provinceName = cityArr[i];
+      this.$axios.get('http://42.194.158.76:8001/map/today/province?name=' + provinceName).then(res => {
+        res.data.cities.forEach(city => {
+          const cityInfo = {
+            todayConfirmed: city.new.confirmed,
+            provinceName: provinceName,
+            deceased: city.total.died,
+            confirmed: city.total.confirmed,
+            name: city.name,
+            recovered: city.total.cured
+          }
+          this.db.push(cityInfo)
+        })
+      })
+    }
+    this.data = []
+    this.db.forEach(city => {
+      const copy = {
+        provinceName: city.provinceName,
+        deceased: city.deceased,
+        confirmed: city.confirmed,
+        name: city.name,
+        recovered: city.recovered,
+        todayConfirmed: city.todayConfirmed
+      }
+      this.data.push(copy)
+    })
+    // 风险信息
+    // 可以和html部分的预警条一起删了
     this.$axios.get('/data/riskArea').then(res => {
       this.warnings = res.data.data
     })
+    // 本土患者轨迹
+    // 可能得和html部分的疫情轨迹模块一起删除
     this.$axios.get('/data/trajectory').then(res => {
       if (res.data.status === 200) {
         this.trajectory = res.data.data
@@ -2253,6 +2257,7 @@ export default {
         })
       }
     })
+    // 订阅的省份
     this.$axios.get('/subscription/province').then(res => {
       if (res.data.status === 200) {
         for(let pros in res.data.data){
