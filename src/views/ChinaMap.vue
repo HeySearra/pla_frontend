@@ -680,33 +680,28 @@
                   <v-col cols="5"><span style="font-size:24px">{{location.province}}</span></v-col>
                 </v-row>
                 <v-row>
-                  <!-- **************************  -->
-                  <!-- 为啥不用provinceInfo的今日信息 -->
-                  <!-- **************************  -->
-                  <v-col cols="3">
+                  <v-col cols="4">
                     <v-card style="text-align: center;padding: 30px" color="#fff8f8">
-                      <div><span style="color:#7c7c7c">较上日</span><span style="color: #e61c1d">+{{location.cityInfo.todayConfirm}}</span></div>
-                      <div style="color: #e61c1d;font-size: 32px">{{location.provinceInfo.nowConfirm}}</div>
-                      <div style="font-size: 20px">现存确诊</div>
-                    </v-card>
-                  </v-col>
-                  <v-col cols="3">
-                    <v-card style="text-align: center;padding: 30px" color="#fef7ff">
-                      <div><span style="color:#7c7c7c">较上日</span><span style="color: #ae3ac6">+{{location.cityInfo.todayWzz}}</span></div>
-                      <div style="color: #ae3ac6;font-size: 32px">{{location.provinceInfo.wzz}}</div>
-                      <div style="font-size: 16px">本土无症状</div>
-                    </v-card>
-                  </v-col>
-                  <v-col cols="3">
-                    <v-card style="text-align: center;padding: 30px" color="#fff4f4">
-                      <div><span style="color:#7c7c7c">较上日</span><span style="color: #be2121">+{{location.cityInfo.todayConfirm}}</span></div>
-                      <div style="color: #be2121;font-size: 32px">{{location.provinceInfo.confirm}}</div>
+                      <div><span style="color:#7c7c7c">较上日</span><span style="color: #e61c1d">+{{location.provinceInfo.todayConfirm}}</span></div>
+                      <div style="color: #e61c1d;font-size: 32px">{{location.provinceInfo.confirm}}</div>
                       <div style="font-size: 20px">累计确诊</div>
                     </v-card>
                   </v-col>
-                  <!-- ***** -->
-                  <!-- +0??? -->
-                  <!-- ***** -->
+                  <v-col cols="4">
+                    <v-card style="text-align: center;padding: 30px" color="#fef7ff">
+                      <div><span style="color:#7c7c7c">较上日</span><span style="color: #ae3ac6">+{{location.provinceInfo.todayRecovered}}</span></div>
+                      <div style="color: #ae3ac6;font-size: 32px">{{location.provinceInfo.recovered}}</div>
+                      <div style="font-size: 20px">累计治愈</div>
+                    </v-card>
+                  </v-col>
+                  <v-col cols="4">
+                    <v-card style="text-align: center;padding: 30px" color="#fff4f4">
+                      <div><span style="color:#7c7c7c">较上日</span><span style="color: #be2121">+{{location.provinceInfo.todayDead}}</span></div>
+                      <div style="color: #be2121;font-size: 32px">{{location.provinceInfo.dead}}</div>
+                      <div style="font-size: 20px">累计死亡</div>
+                    </v-card>
+                  </v-col>
+                  <!--
                   <v-col cols="3">
                     <v-card style="text-align: center;padding: 30px" color="#f3f6f8">
                       <div><span style="color:#7c7c7c">较上日</span><span style="color: #4e5a65">+0</span></div>
@@ -714,32 +709,34 @@
                       <div style="font-size: 20px">累计死亡</div>
                     </v-card>
                   </v-col>
+                  -->
                 </v-row>
                 <v-row>
                   <v-col cols="5"><span style="font-size:24px">{{location.city}}</span></v-col>
                 </v-row>
                 <v-row>
-                  <v-col cols="3">
+                  <v-col cols="4">
                     <v-card style="text-align: center;padding: 30px" color="#fff8f8">
                       <div><span style="color:#7c7c7c">较上日</span><span style="color: #e61c1d">+{{location.cityInfo.todayConfirm}}</span></div>
-                      <div style="color: #e61c1d;font-size: 32px">{{location.cityInfo.nowConfirm}}</div>
-                      <div style="font-size: 20px">现存确诊</div>
-                    </v-card>
-                  </v-col>
-                  <v-col cols="3">
-                    <v-card style="text-align: center;padding: 30px" color="#fef7ff">
-                      <div><span style="color:#7c7c7c">较上日</span><span style="color: #ae3ac6">+{{location.cityInfo.todayWzz}}</span></div>
-                      <div style="color: #ae3ac6;font-size: 32px">{{location.cityInfo.wzz}}</div>
-                      <div style="font-size: 16px">本土无症状</div>
-                    </v-card>
-                  </v-col>
-                  <v-col cols="3">
-                    <v-card style="text-align: center;padding: 30px" color="#fff4f4">
-                      <div><span style="color:#7c7c7c">较上日</span><span style="color: #be2121">+{{location.cityInfo.todayConfirm}}</span></div>
-                      <div style="color: #be2121;font-size: 32px">{{location.cityInfo.confirm}}</div>
+                      <div style="color: #e61c1d;font-size: 32px">{{location.cityInfo.confirm}}</div>
                       <div style="font-size: 20px">累计确诊</div>
                     </v-card>
                   </v-col>
+                  <v-col cols="4">
+                    <v-card style="text-align: center;padding: 30px" color="#fef7ff">
+                      <div><span style="color:#7c7c7c">较上日</span><span style="color: #ae3ac6">+{{location.cityInfo.todayRecovered}}</span></div>
+                      <div style="color: #ae3ac6;font-size: 32px">{{location.cityInfo.recovered}}</div>
+                      <div style="font-size: 20px">累计治愈</div>
+                    </v-card>
+                  </v-col>
+                  <v-col cols="4">
+                    <v-card style="text-align: center;padding: 30px" color="#fff4f4">
+                      <div><span style="color:#7c7c7c">较上日</span><span style="color: #be2121">+{{location.cityInfo.todayDead}}</span></div>
+                      <div style="color: #be2121;font-size: 32px">{{location.cityInfo.dead}}</div>
+                      <div style="font-size: 20px">累计死亡</div>
+                    </v-card>
+                  </v-col>
+                  <!--
                   <v-col cols="3">
                     <v-card style="text-align: center;padding: 30px" color="#f3f6f8">
                       <div><span style="color:#7c7c7c">较上日</span><span style="color: #4e5a65">+0</span></div>
@@ -747,6 +744,7 @@
                       <div style="font-size: 20px">累计死亡</div>
                     </v-card>
                   </v-col>
+                  -->
                 </v-row>
               </div>
               <div v-else>
@@ -1102,6 +1100,8 @@ export default {
           self.location.city = data.addressComponent.city;
           self.location.district = data.addressComponent.district;
           self.location.address = data.formattedAddress;
+          const provinceName = self.location.province.substr(0, 2)
+          /*
           self.$axios.get('http://42.194.158.76:8001/data/today/domestic_analyze').then(res => {
             res.data.data[0].provinces.forEach(province => {
               if (province.name === self.location.province.substr(0,2)) {
@@ -1111,6 +1111,8 @@ export default {
                 self.location.provinceInfo.todayConfirm = province.new.confirmed
                 // self.location.provinceInfo.todayWzz = province.today.wzz_add === undefined ? 0 : province.today.wzz_add
                 // self.location.provinceInfo.wzz = province.total.wzz
+                // 请求该省份所有的城市信息
+
                 if (province.name === '北京' || province.name === '天津' || province.name === '上海' || province.name === '重庆') {
                   self.location.city = self.location.district
                   province.children.forEach(city => {
@@ -1138,12 +1140,39 @@ export default {
               }
             })
           })
+          */
+          self.$axios.get('http://42.194.158.76:8001/map/today/province?name=' + provinceName).then(res => {
+            if (res.data.status === 0) {
+              let province = res.data.province
+              self.location.provinceInfo.confirm = province.total.confirmed
+              self.location.provinceInfo.dead = province.total.died
+              self.location.provinceInfo.recovered = province.total.cured
+              self.location.provinceInfo.todayConfirm = province.new.confirmed
+              self.location.provinceInfo.todayDead = province.new.died
+              self.location.provinceInfo.todayRecovered = province.new.cured
+              if (provinceName === '北京' || provinceName === '天津' || provinceName === '上海' || provinceName === '重庆') {
+                self.location.city = self.location.district
+              }
+
+              res.data.cities.forEach(city => {
+                if (city.name.substr(0, 2) === self.location.city.substr(0, 2)) {
+                  self.location.cityInfo.confirm = city.total.confirmed
+                  self.location.cityInfo.dead = city.total.died
+                  self.location.cityInfo.recovered = city.total.cured
+                  self.location.cityInfo.todayConfirm = city.new.confirmed
+                  self.location.cityInfo.todayDead = city.new.died
+                  self.location.cityInfo.todayRecovered = city.new.cured
+                }
+              })
+            }
+          })
         }
 
-        function onError () {
+        function onError (data) {
           // 定位出错
           // console.log('定位失败错误：', data);
           // 调用IP定位
+          console.log('定位失败错误：', JSON.stringify(data))
           self.location.province = '北京市';
           self.location.city = '';
           self.location.district = '海淀区';
@@ -1154,6 +1183,7 @@ export default {
     getLocateAuth() {
       this.canLocate = true
       sessionStorage.setItem('canLocate', 'true')
+      // this.getLocation()
       this.showLocationInfo()
     },
     showLocationInfo() {
@@ -1174,12 +1204,8 @@ export default {
               {
                 provinceName: city.name,
                 deceased: city.deceased,
-                active: city.active,
                 confirmed: city.confirmed,
-                recovered: city.recovered,
-                vaccinated: city.vaccinated,
-                grade: city.grade,
-                priority: city.priority
+                recovered: city.recovered
               }
           )
         }
