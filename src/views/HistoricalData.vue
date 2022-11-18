@@ -158,10 +158,9 @@ export default {
   },
   created(){
     this.$vuetify.theme.dark = false
-    this.drawLine().then(()=>{
-      this.getCountryPY();
-      this.initPY();
-    })
+    this.getCountryPY();
+    this.drawLine();
+    this.initPY();
   },
   methods: {
     //初始化
@@ -214,10 +213,9 @@ export default {
             },
             series: _this.series,
           })
-
+          _this.myChart.hideLoading();
         })
       }
-      _this.myChart.hideLoading();
     },
     //新增或删除曲线
     changeSeries(y) {
@@ -252,11 +250,10 @@ export default {
       // _this.selected = [];
       _this.series = [];
       _this.myChart.clear();
-      _this.drawLine().then(()=>{
-        _this.inputCountry = '';
-        _this.showName = _this.worldName;
-        _this.initPY()
-      })
+      _this.drawLine();
+      _this.inputCountry = '';
+      _this.showName = _this.worldName;
+      _this.initPY()
     },
     getCountryPY(){
       const _this = this
@@ -325,6 +322,7 @@ export default {
             type: 'info'
           });
         }
+        _this.myChart.hideLoading();
       })
     },
     deleteCountry(i) {
@@ -402,7 +400,9 @@ export default {
       })
       _this.myChart.setOption(option)
       _this.myChart.showLoading({
-        text: 'loading……'
+        text: 'loading……',
+        color: '#448FFF',
+        textColor: '#448FFF',
       });
     },
     //模糊搜索国家
