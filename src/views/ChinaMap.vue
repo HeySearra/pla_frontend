@@ -136,10 +136,10 @@
         <v-row>
           <el-card style="margin-top: 15px ;width: 100%">
             <v-tabs v-model="value">
-              <v-tab style="font-size: 20px">疫情数据</v-tab>
-              <v-tab style="font-size: 20px">出行预警</v-tab>
-              <v-tab style="font-size: 20px">疫情轨迹</v-tab>
-              <v-tab style="font-size: 20px">当前位置</v-tab>
+              <v-tab style="font-size: 20px; width: 25%">疫情数据</v-tab>
+              <v-tab style="font-size: 20px; width: 25%">出行查询</v-tab>
+              <v-tab style="font-size: 20px; width: 25%">疫情轨迹</v-tab>
+              <v-tab style="font-size: 20px; width: 25%">当前位置</v-tab>
             </v-tabs>
             <el-table
                 :data="shownProvince"
@@ -250,6 +250,7 @@
                     <span v-if="!way">查看飞机</span>
                     <span v-else>查看铁路</span>
                   </v-btn>
+                  <!--
                   <v-btn v-if="way"
                          class="ma-2"
                          outlined
@@ -259,6 +260,7 @@
                     <span v-if="!goOrAr">风险地区出发</span>
                     <span v-else>风险地区到达</span>
                   </v-btn>
+                  -->
                   <el-switch
                       v-model="value1"
                       active-text="显示轨迹"
@@ -318,7 +320,8 @@
               <v-row>
                 <el-table
                     v-if="way && goOrAr"
-                    :data="airGo"
+                    :key="1"
+                    :data="air"
                     style="width: 100%;font-size: 16px"
                     height="440"
                 >
@@ -345,7 +348,7 @@
                       <span style="font-size: 18px;font-weight:bold;">起飞机场</span>
                     </template>
                     <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.beginning}}</span>
+                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.beginAirport}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -358,7 +361,7 @@
                       <span style="font-size: 18px;font-weight:bold;">到达机场</span>
                     </template>
                     <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.arrival}}</span>
+                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.arrAirport}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -370,7 +373,7 @@
                       <span style="font-size: 18px;font-weight:bold;">起飞时间</span>
                     </template>
                     <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;">{{item.row.actualTime}}</span>
+                      <span style="color:#000000;font-size: 20px;">{{item.row.deptTime}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -396,7 +399,8 @@
 
                 <el-table
                     v-if="way && !goOrAr"
-                    :data="airArrival"
+                    :key="2"
+                    :data="air"
                     style="width: 100%;font-size: 16px"
                     height="440"
                 >
@@ -423,7 +427,7 @@
                       <span style="font-size: 18px;font-weight:bold;">起飞机场</span>
                     </template>
                     <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.beginning}}</span>
+                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.beginAirport}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -436,7 +440,7 @@
                       <span style="font-size: 18px;font-weight:bold;">到达机场</span>
                     </template>
                     <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.arrival}}</span>
+                      <span style="color:#000000;font-size: 20px;font-weight:bold;">{{item.row.arrAirport}}</span>
                     </template>
                   </el-table-column>
                   <!--                <el-table-column-->
@@ -461,7 +465,7 @@
                       <span style="font-size: 18px;font-weight:bold;">起飞时间</span>
                     </template>
                     <template slot-scope="item">
-                      <span style="color:#000000;font-size: 20px;">{{item.row.actualTime}}</span>
+                      <span style="color:#000000;font-size: 20px;">{{item.row.deptTime}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -488,6 +492,7 @@
 
                 <el-table
                     v-if="!way && flag"
+                    :key="3"
                     :data="train"
                     style="width: 100%;font-size: 16px"
                     height="440px"
@@ -558,6 +563,7 @@
                       <span style="color:#000000;font-size: 20px;">{{item.row.arriveTime}}</span>
                     </template>
                   </el-table-column>
+                  <!--
                   <el-table-column
 
                       prop="distance"
@@ -571,11 +577,13 @@
                       <span style="color:#000000;font-size: 20px;">{{item.row.distance}}</span>
                     </template>
                   </el-table-column>
+                  -->
                 </el-table>
 
                 <el-table
                     v-if="!way && !flag"
-                    :data="train2"
+                    :key="4"
+                    :data="train"
                     style="width: 100%;font-size: 16px"
                     height="440px"
                 >
@@ -644,6 +652,7 @@
                     </template>
                   </el-table-column>
 
+                  <!--
                   <el-table-column
 
                       prop="distance"
@@ -657,6 +666,7 @@
                       <span style="color:#000000;font-size: 20px;">{{item.row.distance}}</span>
                     </template>
                   </el-table-column>
+                  -->
                 </el-table>
               </v-row>
             </div>
@@ -879,6 +889,7 @@ export default {
       bookedProvinces1: [],   // 订阅的城市名
       value1:false,
       showTrain:[],
+      air:[],
       airArrival:[],
       airGo:[],
       airArrival1:[],
@@ -986,11 +997,11 @@ export default {
       else if(val && this.value1 && !this.goOrAr){
         this.deleteTrain();
         this.deleteAir();
-        this.airLineArr();
+        this.airLine();
       }
       else if (!val && this.value1) {
         this.deleteAir();
-        this.trainLine()
+        this.trainLine();
       }
     },
     value1(val){
@@ -1004,7 +1015,7 @@ export default {
         else if(this.way && !this.goOrAr){
           this.deleteTrain();
           this.deleteAir();
-          this.airLineArr()
+          this.airLine();
         }
         else this.trainLine();
       }
@@ -1025,7 +1036,7 @@ export default {
         if(this.way && this.value1){
           this.deleteTrain();
           this.deleteAir();
-          this.airLineArr()
+          this.airLine();
         }
         else if(!this.way && this.value1){
           this.deleteTrain();
@@ -1042,6 +1053,12 @@ export default {
         if (val === 3 && this.canLocate) {
           this.showLocationInfo()
         }
+      }
+    },
+    flag(val) {
+      if (val) {
+        this.deleteAir();
+        this.deleteTrain();
       }
     }
   },
@@ -1254,7 +1271,6 @@ export default {
 
     },
     getData() {
-      // this.$axios.get('/data/province').then(res => {
       this.$axios.get('http://42.194.158.76:8001/data/today/domestic_analyze').then(res => {
         let list = this.myMap(res.data.data[0].provinces, item => {
           const value = item.total.confirmed
@@ -1584,10 +1600,12 @@ export default {
       }
     },
     getColor2 (x) {
-      if (x==="起飞") return 'green'
-      else if (x==="延误")  return 'orange'
+      if (x==="起飞") return 'blue'
+      else if (x==="到达")  return 'green'
+      else if (x==="延误")  return 'yellow'
+      else if (x==="预警")  return 'orange'
       else if (x==="取消")  return 'red'
-      else if (x==="计划")  return 'blue'
+      else if (x==="计划")  return 'indigo'
       else return ''
     },
     changeWay() {
@@ -1603,13 +1621,17 @@ export default {
     },
     getTrain() {
       const _this = this
+      /*
       this.$axios.get('/data/railway').then(function (resp) {
         _this.train = resp.data.data;
         console.log(_this.train)
         // _this.trainLine();
       })
+      */
+      _this.train = [];
     },
     searchTrain() {
+      /*
       var i = 0;
       var len = this.train.length
       var temp = [];
@@ -1670,122 +1692,101 @@ export default {
       }
       this.train2 = temp;
       this.flag = false;
+      */
+      var temp = [];
+      if (this.searchBeginning == '' || this.searchArrival == '') {
+        this.$message({
+          type: 'warning',
+          message: '请输入出发地与目的地！'
+        })
+        return
+      }
+      // 请求出发地与目的地之间的航班信息
+      this.$axios.post(
+              'http://42.194.158.76:8001/travel/city/train',
+              {start: this.searchBeginning, end: this.searchArrival}
+      ).then(res => {
+        if (res.data.status === 0 && res.data.planes.length !== 0) {
+          res.data.trains.forEach(train => {
+            const trainInfo = {
+              number: train.key,
+              beginning: train.start.city_name,
+              arrival: train.end.city_name,
+              beginTime: train.start.datetime,
+              arriveTime: train.end.datetime
+            }
+            temp.push(trainInfo)
+          })
+        }
+        else if (res.data.status === 3) {
+          this.$message({
+            type: 'warning',
+            message: '请输入有效的车站名！'
+          })
+          return
+        }
+        else {
+          this.$message({
+            type: 'warning',
+            message: '未找到符合要求的高铁/火车'
+          })
+          return
+        }
+      })
+      this.train = temp;
+      this.flag = false;
+      if (this.value1) {
+        setTimeout(() => {
+          this.deleteTrain();
+          this.trainLine();
+        }, 700);
+      }
     },
     searchPlane() {
-      var i = 0;
-      if(this.goOrAr){
-        var len = this.airGo.length
-        var temp = [];
-        var findOrNot = false;
-        if (this.searchBeginning == '' && this.searchArrival != '') {
-          for (i = 0; i < len; i++) {
-            // if (this.searchArrival == this.airGo[i].arrival) {
-            //   temp.push(this.airGo[i]);
-            //   findOrNot = true
-            // }
-            if ((this.airGo[i].arrival.search(this.searchArrival))!=-1) {
-              temp.push(this.airGo[i]);
-              findOrNot = true
-            }
-          }
-        } else if (this.searchBeginning != '' && this.searchArrival == '') {
-          for (i = 0; i < len; i++) {
-            // if (this.airGo[i].beginning == this.searchBeginning) {
-            //   temp.push(this.airGo[i])
-            //   findOrNot = true
-            // }
-            if ((this.airGo[i].beginning.search(this.searchBeginning))!=-1) {
-              temp.push(this.airGo[i])
-              findOrNot = true
-            }
-          }
-        } else if (this.searchBeginning != '' && this.searchArrival != '') {
-          for (i = 0; i < len; i++) {
-            // if (this.airGo[i].beginning == this.searchBeginning && this.searchArrival == this.airGo[i].arrival) {
-            //   temp.push(this.airGo[i])
-            //   findOrNot = true
-            // }
-            if ((this.airGo[i].beginning.search(this.searchBeginning))!=-1 && (this.airGo[i].arrival.search(this.searchArrival))!=-1) {
-              temp.push(this.airGo[i])
-              findOrNot = true
-            }
-          }
-        }
-        else if (this.searchBeginning == '' && this.searchArrival == '') {
-          this.$message({
-            type: 'warning',
-            message: '请输入出发地或目的地！'
-          })
-          //alert('请输入出发地或目的地！')
-          return
-        }
-
-        if (findOrNot == false) {
-          this.$message({
-            type: 'warning',
-            message: '当前搜索地没有风险航班'
-          })
-          //alert("未找到符合要求的高铁/火车")
-          return
-        }
-        this.airGo=temp;
+      var temp = [];
+      if (this.searchBeginning == '' || this.searchArrival == '') {
+        this.$message({
+          type: 'warning',
+          message: '请输入出发地与目的地！'
+        })
+        return
       }
-      else{
-        var len2 = this.airArrival.length
-        var temp2 = [];
-        var findOrNot2 = false;
-        if (this.searchBeginning == '' && this.searchArrival != '') {
-          for (i = 0; i < len2; i++) {
-            // if (this.searchArrival == this.airArrival[i].arrival) {
-            //   temp2.push(this.airArrival[i]);
-            //   findOrNot2 = true
-            // }
-            if ((this.airArrival[i].arrival.search(this.searchArrival))!=-1) {
-              temp2.push(this.airArrival[i]);
-              findOrNot2 = true
-            }
-          }
-        } else if (this.searchBeginning != '' && this.searchArrival == '') {
-          for (i = 0; i < len2; i++) {
-            // if (this.airArrival[i].beginning == this.searchBeginning) {
-            //   temp2.push(this.airArrival[i])
-            //   findOrNot2 = true
-            // }
-            if ((this.airArrival[i].beginning.search(this.searchBeginning))!=-1) {
-              temp2.push(this.airArrival[i])
-              findOrNot2 = true
-            }
-          }
-        } else if (this.searchBeginning != '' && this.searchArrival != '') {
-          for (i = 0; i < len2; i++) {
-            // if (this.airArrival[i].beginning == this.searchBeginning && this.searchArrival == this.airArrival[i].arrival) {
-            //   temp2.push(this.airArrival[i])
-            //   findOrNot2 = true
-            // }
-            if ((this.airArrival[i].beginning.search(this.searchBeginning))!=-1 && (this.airArrival[i].arrival.search(this.searchArrival))!=-1) {
-              temp2.push(this.airArrival[i])
-              findOrNot2 = true
-            }
-          }
+      // 请求出发地与目的地之间的航班信息
+      this.$axios.post(
+              'http://42.194.158.76:8001/travel/city/plane',
+              {start: this.searchBeginning, end:this.searchArrival}
+      ).then(res => {
+        if (res.data.status === 0 && res.data.planes.length !== 0) {
+          res.data.planes.forEach(plane => {
+            this.$axios.post('http://42.194.158.76:8001/travel/plane_info', {number: plane.key}).then(resp => {
+              const planeInfo = {
+                number: plane.key,
+                beginning: plane.start.city_name,
+                arrival: plane.end.city_name,
+                beginAirport: plane.start.station_name,
+                arrAirport: plane.end.station_name,
+                deptTime: plane.start.datetime,
+                status: resp.data.info.msg.substr(6)
+              }
+              temp.push(planeInfo)
+            })
+          })
         }
-        else if (this.searchBeginning == '' && this.searchArrival == '') {
+        else if (res.data.status === 0) {
           this.$message({
             type: 'warning',
-            message: '请输入出发地或目的地！'
+            message: '未找到符合要求的航班'
           })
-          //alert('请输入出发地或目的地！')
           return
         }
-
-        if (findOrNot2 == false) {
-          this.$message({
-            type: 'warning',
-            message: '当前搜索地没有风险航班'
-          })
-          //alert("未找到符合要求的高铁/火车")
-          return
-        }
-        this.airArrival=temp2;
+      })
+      this.air = temp;
+      this.flag = false;
+      if (this.value1) {
+        setTimeout(() => {
+          this.deleteAir();
+          this.airLine();
+        }, 700);
       }
     },
     changeFlag() {
@@ -1793,7 +1794,7 @@ export default {
       this.searchBeginning = ''
       this.searchArrival = ''
       this.search = ''
-      this.getAir()
+      this.getTrain()
     },
     changeFlag2(){
       this.getAir()
@@ -1847,6 +1848,7 @@ export default {
       const _this = this;
       const geoCoordMap = require('@/assets/geo_coord_map.json')
 
+      var temp = [];
       for (var i = 0; i < _this.train.length; i++) {
         var addTrain = {
           fromName: '',
@@ -1859,10 +1861,11 @@ export default {
         var geoCoord2 = geoCoordMap[addTrain.toName];
         if (geoCoord2 && geoCoord1) {
           addTrain['coords'] = [geoCoord1, geoCoord2];
-          _this.showTrain.push(addTrain);
+          temp.push(addTrain);
         }
       }
 
+      _this.showTrain = temp;
       _this.addTraintoMap();
 
     },
@@ -1911,8 +1914,10 @@ export default {
           },
       )
       this.mycharts.setOption(option);
+      this.$forceUpdate();
     },
     getAir() {
+      /*
       const _this = this
       var temp=[];
       var i=0;
@@ -1955,44 +1960,31 @@ export default {
         //console.log(_this.airGo)
 
       })
-
+      */
+      this.air = [];
     },
     //画飞机
     airLine() {
       const _this = this;
       const geoCoordMap = require('@/assets/geo_coord_map.json')
-      for (var i = 0; i < _this.airGo1.length; i++) {
+      var temp = [];
+      for (var i = 0; i < _this.air.length; i++) {
         let addAir = {
           fromName: '',
           toName: '',
-          coords: [],
+          coords: []
         }
-        addAir['fromName'] = _this.airGo1[i].beginning;
+        addAir['fromName'] = _this.air[i].beginning;
         var geoCoord1 = geoCoordMap[addAir.fromName];
-        addAir['toName'] = _this.airGo1[i].arrival;
+        addAir['toName'] = _this.air[i].arrival;
         var geoCoord2 = geoCoordMap[addAir.toName];
         if (geoCoord2 && geoCoord1) {
           addAir['coords'] = [geoCoord1, geoCoord2];
-          _this.showAir.push(addAir);
+          temp.push(addAir);
         }
       }
-      // for (let i = 0; i < _this.airArrival.length; i++) {
-      //   let addAir = {
-      //     fromName: '',
-      //     toName: '',
-      //     coords: [],
-      //   }
-      //   addAir['fromName'] = _this.airArrival[i].beginning;
-      //   let geoCoord1 = geoCoordMap[addAir.fromName];
-      //   addAir['toName'] = _this.airArrival[i].arrival;
-      //   let geoCoord2 = geoCoordMap[addAir.toName];
-      //   if (geoCoord2 && geoCoord1) {
-      //     addAir['coords'] = [geoCoord1, geoCoord2];
-      //     _this.showAir.push(addAir);
-      //   }
-      // }
+      _this.showAir = temp;
       _this.addAirtoMap();
-      // _this.mycharts.setOption(option);
     },
     airLineArr() {
       const _this = this;
@@ -2081,7 +2073,7 @@ export default {
           // }
       )
       this.mycharts.clear()
-      this.mycharts.setOption(option);
+      this.mycharts.setOption(option, true)
     },
     addAirtoMap2() {
       const option = this.mycharts.getOption()
@@ -2149,7 +2141,7 @@ export default {
   created() {
     this.$vuetify.theme.dark = false
     this.getTrain()
-    this.getAir()
+    // this.getAir()
     this.getProvinceTotal()
     if (sessionStorage.canLocate) {
       this.canLocate = true
@@ -2160,7 +2152,7 @@ export default {
     // map初始化
     this.getData()
     this.getTrain()
-    this.getAir()
+    // this.getAir()
     this.mycharts.setOption(option)
 
     // this.$axios.get('/data/province').then(res => {
@@ -2299,6 +2291,9 @@ export default {
         this.isCity = false
       }
     })
+
+    this.getAir()
+
     console.log(this.isCity)
     this.getLocation()
   },
