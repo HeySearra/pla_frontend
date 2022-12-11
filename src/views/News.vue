@@ -39,7 +39,7 @@
             v-for="(n,index) in nationalNews"
             :key="index"
             style="margin-bottom: 10px; border-radius: 0px; height: 123px; width: 320px;cursor: pointer"
-            @click="toPolicy(n.pageUrl)"
+            @click="toPolicy(n.url)"
         >
           <div
           style="height: 110px">
@@ -47,7 +47,7 @@
               {{n.title}}
             </p>
             <p style="color: #a2a2a2">
-              {{n.time}}
+              {{n.publish_time}}
             </p>
           </div>
           <v-divider></v-divider>
@@ -106,7 +106,7 @@
           >
             <v-row class="pt-1">
               <v-col cols="3">
-                <strong>{{n.tranTime}}</strong>
+                <strong>{{n.publish_time}}</strong>
               </v-col>
               <v-col>
                 <strong>{{n.title}}</strong>
@@ -127,9 +127,24 @@ export default {
     return{
       reveal:false,
       nationalNews:[
-      
+        // {
+        //   time:"2022-10-01",
+        //   title:"haha",
+        //   pageUrl:"aa"
+        // },
+        // {
+        //   time:"2022-10-02",
+        //   title:"hihi",
+        //   pageUrl:"bb"
+        // },
+        // {
+        //   time:"2022-10-03",
+        //   title:"huhu",
+        //   pageUrl:"cc"
+        // }
       ],
       timeline:[],
+      time:'2022-07-01',
       localNews:[
         {
           name:"北京",
@@ -278,22 +293,22 @@ export default {
   },
   methods:{
     getTimeline(){
-      this.$axios.get('/data/news').then(res => {
+      this.$axios.post('http://42.194.158.76:8001/news/weekly',{'date':''}).then(res => {
         console.log(res);
         if (res.status !== 200) {
           return this.$message.error('获取失败');
         }
-        this.timeline = res.data.data;
+        this.timeline = res.data.china;
       })
     },
     async getNationalPolicy(){
-      await this.$axios.get('/data/latestPolicy').then(res => {
+      await this.$axios.post('http://42.194.158.76:8001/news/weekly',{'date':''}).then(res => {
         console.log(res);
         if (res.status !== 200) {
           return this.$message.error('获取失败');
         }
         else{
-          this.nationalNews = res.data.data;
+          this.nationalNews = res.data.china;
           console.log(this.nationalNews)
         }
       })
