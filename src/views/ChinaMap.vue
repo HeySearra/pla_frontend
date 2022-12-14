@@ -136,10 +136,12 @@
         <v-row>
           <el-card style="margin-top: 15px ;width: 100%">
             <v-tabs v-model="value">
-              <v-tab style="font-size: 20px; width: 25%">疫情数据</v-tab>
-              <v-tab style="font-size: 20px; width: 25%">出行查询</v-tab>
+              <v-tab style="font-size: 20px; width: 33%">疫情数据</v-tab>
+              <v-tab style="font-size: 20px; width: 33%">出行查询</v-tab>
+              <!--
               <v-tab style="font-size: 20px; width: 25%">疫情轨迹</v-tab>
-              <v-tab style="font-size: 20px; width: 25%">当前位置</v-tab>
+              -->
+              <v-tab style="font-size: 20px; width: 33%">当前位置</v-tab>
             </v-tabs>
             <el-table
                 :data="shownProvince"
@@ -163,6 +165,7 @@
                 </template>
               </el-table-column>
 
+              <!--
               <el-table-column
                   prop="confirmed"
                   v-if="isSelect"
@@ -198,6 +201,7 @@
                 </template>
 
               </el-table-column>
+              -->
 
               <el-table-column
                   prop="confirmed"
@@ -239,6 +243,7 @@
             <div v-else-if="value === 1">
               <v-row>
                 <v-col cols="12" md="6">
+                  <!--
                   <v-btn
 
                       class="ma-2"
@@ -250,6 +255,7 @@
                     <span v-if="!way">查看飞机</span>
                     <span v-else>查看铁路</span>
                   </v-btn>
+                  -->
                   <!--
                   <v-btn v-if="way"
                          class="ma-2"
@@ -670,6 +676,7 @@
                 </el-table>
               </v-row>
             </div>
+            <!--
             <div v-else-if="value === 2" style="min-height: 560px;">
               <el-row :span="8"
                       style="margin-bottom: 10px;margin-top: 10px"
@@ -681,7 +688,8 @@
                 </el-card>
               </el-row>
             </div>
-            <div v-else-if="value === 3">
+            -->
+            <div v-else-if="value === 2">
               <div v-if="canLocate">
                 <v-row style="margin-top: 20px">
                   <strong>当前位置：</strong>{{location.address}}
