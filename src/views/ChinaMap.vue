@@ -14,7 +14,9 @@
               <div style="margin: auto" v-if="!city">
                 <div style="font-weight: bolder;font-size: 20px">累计确诊</div>
                 <div style="font-weight: bolder;font-size: 32px;color:#0D47A1 ">{{totalConfirm}}</div>
+                <!--
                 <div style="font-weight: bolder;font-size: 16px;color:#0D47A1 ">+{{todayConfirm}}</div>
+                -->
               </div>
 <!--              :data="shownProvince"-->
               <div style="margin: auto" v-else >
@@ -22,25 +24,33 @@
                 <div style="font-weight: bolder;font-size: 32px;color:#0D47A1 ">
                   {{cityInfoCard.confirmed}}
                 </div>
+                <!--
                 <div style="font-weight: bolder;font-size: 16px;color:#0D47A1 ">+{{cityInfoCard.todayConfirm}}</div>
+                -->
               </div>
 
               <div style="margin: auto" v-if="!city">
                 <div style="font-weight: bolder;font-size: 20px">累计治愈</div>
                 <div style="font-weight: bolder;font-size: 32px;color:#C62828 ">{{heal}}</div>
+                <!--
                 <div style="font-weight: bolder;font-size: 16px;color:#C62828 ">+{{todayHeal}}</div>
+                -->
               </div>
               <div style="margin: auto" v-else>
                 <div style="font-weight: bolder;font-size: 20px">累计治愈</div>
                 <div style="font-weight: bolder;font-size: 32px;color:#C62828 ">{{cityInfoCard.recovered}}</div>
+                <!--
                 <div style="font-weight: bolder;font-size: 16px;color:#C62828 ">+{{cityInfoCard.todayRecovered}}</div>
+                -->
               </div>
 
 
               <div style="margin: auto" v-if="!city">
                 <div style="font-weight: bolder;font-size: 20px">死亡人数</div>
                 <div style="font-weight: bolder;font-size: 32px;color:#004D40 ">{{dead}}</div>
+                <!--
                 <div style="font-weight: bolder;font-size: 16px;color:#004D40 ">+{{todayDead}}</div>
+                -->
               </div>
 <!--              item.row.deceased-->
               <div style="margin: auto" v-else>
@@ -70,6 +80,7 @@
               @click="returnWholeCountry" style="background-color: #1e88e5; color: white;border-radius: 28px" v-show="isCity">
             返回全国地图
           </v-btn>
+          <!--
           <v-btn
               class="mx-2"
               rounded
@@ -99,6 +110,7 @@
             </v-icon>
             <div style="margin-left: 10px;">已订阅{{city}}</div>
           </v-btn>
+          -->
         </v-row>
         <!--        地图-->
         <v-row>
@@ -700,21 +712,27 @@
                 <v-row>
                   <v-col cols="4">
                     <v-card style="text-align: center;padding: 30px" color="#fff8f8">
+                      <!--
                       <div><span style="color:#7c7c7c">较上日</span><span style="color: #e61c1d">+{{location.provinceInfo.todayConfirm}}</span></div>
+                      -->
                       <div style="color: #e61c1d;font-size: 32px">{{location.provinceInfo.confirm}}</div>
                       <div style="font-size: 20px">累计确诊</div>
                     </v-card>
                   </v-col>
                   <v-col cols="4">
                     <v-card style="text-align: center;padding: 30px" color="#fef7ff">
+                      <!--
                       <div><span style="color:#7c7c7c">较上日</span><span style="color: #ae3ac6">+{{location.provinceInfo.todayRecovered}}</span></div>
+                      -->
                       <div style="color: #ae3ac6;font-size: 32px">{{location.provinceInfo.recovered}}</div>
                       <div style="font-size: 20px">累计治愈</div>
                     </v-card>
                   </v-col>
                   <v-col cols="4">
                     <v-card style="text-align: center;padding: 30px" color="#fff4f4">
+                      <!--
                       <div><span style="color:#7c7c7c">较上日</span><span style="color: #be2121">+{{location.provinceInfo.todayDead}}</span></div>
+                      -->
                       <div style="color: #be2121;font-size: 32px">{{location.provinceInfo.dead}}</div>
                       <div style="font-size: 20px">累计死亡</div>
                     </v-card>
@@ -735,21 +753,27 @@
                 <v-row>
                   <v-col cols="4">
                     <v-card style="text-align: center;padding: 30px" color="#fff8f8">
+                      <!--
                       <div><span style="color:#7c7c7c">较上日</span><span style="color: #e61c1d">+{{location.cityInfo.todayConfirm}}</span></div>
+                      -->
                       <div style="color: #e61c1d;font-size: 32px">{{location.cityInfo.confirm}}</div>
                       <div style="font-size: 20px">累计确诊</div>
                     </v-card>
                   </v-col>
                   <v-col cols="4">
                     <v-card style="text-align: center;padding: 30px" color="#fef7ff">
+                      <!--
                       <div><span style="color:#7c7c7c">较上日</span><span style="color: #ae3ac6">+{{location.cityInfo.todayRecovered}}</span></div>
+                      -->
                       <div style="color: #ae3ac6;font-size: 32px">{{location.cityInfo.recovered}}</div>
                       <div style="font-size: 20px">累计治愈</div>
                     </v-card>
                   </v-col>
                   <v-col cols="4">
                     <v-card style="text-align: center;padding: 30px" color="#fff4f4">
+                      <!--
                       <div><span style="color:#7c7c7c">较上日</span><span style="color: #be2121">+{{location.cityInfo.todayDead}}</span></div>
+                      -->
                       <div style="color: #be2121;font-size: 32px">{{location.cityInfo.dead}}</div>
                       <div style="font-size: 20px">累计死亡</div>
                     </v-card>
@@ -1302,10 +1326,18 @@ export default {
         // 展示浮标信息
         option.series[0].data = list
         option.tooltip.formatter = function (params) {
+          /*
           if (params.data) {
             return params.name + '<br/>累计确诊人数：' + params.data.dataset[0] +
                 '<br/>今日确诊人数：' + params.data.dataset[1] + '<br/>死亡人数：' + params.data.dataset[2] +
                 '<br/>治愈人数：' + params.data.dataset[4]
+          }
+          return '暂无数据'
+          */
+          if (params.data) {
+            return params.name + '<br/>累计确诊人数：' + params.data.dataset[0] +
+                    '<br/>死亡人数：' + params.data.dataset[2] +
+                    '<br/>治愈人数：' + params.data.dataset[4]
           }
           return '暂无数据'
         }
